@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\CalendarEventRepository;
+use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,13 +20,12 @@ class CalendarEventController
 
     /**
      * @Route("/create",name="create_event",methods={"POST"})
-     * @param CalendarEventRepository $calendarEventRepository
+     * @param Request $request
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function createAction(Request $request): JsonResponse
     {
-
         $data = json_decode($request->getContent(), true);
         $username = $data['username'];
         $date = new \DateTime($data['eventDate']);
