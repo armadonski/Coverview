@@ -2,21 +2,36 @@
 
 namespace App\Controller;
 
-use App\Service\CalendarEventMediator;
+use App\Repository\CalendarEventRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CalendarEventController
 {
-    /**
-     * @return Response
-     * @Route("/create")
-     */
-    public function createAction()
-    {
-        $arrayData = ['username'=>'gigel','event_type'=>'work from home','date'=>new \DateTime()];
-        $data = json_encode($arrayData);
+    private $calendarEventRepository;
 
-        return new Response($data);
+    public function __construct(CalendarEventRepository $calendarEventRepository)
+    {
+        $this->calendarEventRepository = $calendarEventRepository;
+    }
+
+    /**
+     * @Route("/create",name="create_event",methods={"POST"})
+     * @param CalendarEventRepository $calendarEventRepository
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function createAction(Request $request): JsonResponse
+    {
+
+        $data = json_decode($request->getContent(), true);
+        $username = $data['username'];
+        $date = new \DateTime($data['eventDate']);
+        $eventType = $data['eventType'];
+        $this->calendarEventRepository->saveCalendarEvent($username, $date, $eventType);
+
+        return new JsonResponse(['status' => 'Calendar event created'], Response::HTTP_CREATED);
     }
 }

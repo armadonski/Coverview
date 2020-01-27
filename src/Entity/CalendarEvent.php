@@ -71,4 +71,14 @@ class CalendarEvent
 
         return $this;
     }
+
+    public function serialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'username' => $this->getUsername(),
+            'eventDate' => $this->getEventDate(),
+            'eventType' => $this->getEventType()
+        ];
+    }
 }
