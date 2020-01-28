@@ -4,7 +4,7 @@ namespace App\Controller;
 
 
 use App\Fetcher\CalendarEventFetcher;
-use App\Service\SaveCalendarEvent;
+use App\Service\CalendarEventManager;
 use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +15,7 @@ class CalendarEventController
     private $saveCalendarEvent;
     private $calendarEventFetcher;
 
-    public function __construct(SaveCalendarEvent $saveCalendarEvent, CalendarEventFetcher $calendarEventFetcher)
+    public function __construct(CalendarEventManager $saveCalendarEvent, CalendarEventFetcher $calendarEventFetcher)
     {
         $this->saveCalendarEvent = $saveCalendarEvent;
         $this->calendarEventFetcher = $calendarEventFetcher;
@@ -54,6 +54,7 @@ class CalendarEventController
 
         return $this->saveCalendarEvent->validateAndSaveCalendarEvent($username, $date, $eventType);
     }
+
     /**
      * @Route("/delete/{calendarEventId}",name="delete_calendar_event_by_id",methods={"DELETE"})
      * @param int $calendarEventId
@@ -62,5 +63,20 @@ class CalendarEventController
     public function deleteCalendarEventById(int $calendarEventId): JsonResponse
     {
         return $this->calendarEventFetcher->removeCalendarEvent($calendarEventId);
+    }
+
+    /**
+     * @Route("/update/{calendarEventId}",name="update_calendar_event_by_id",methods={"PUT"})
+     * @param int $calendarEventId
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function updateCalendarEventById(int $calendarEventId, Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $username = $data['username'];
+        $date = new \DateTime($data['eventDate']);
+        $eventType = $data['eventType'];
+        return $this->saveCalendarEvent->validateAndUpdateCalendarEvent($calendarEventId, $username, $date, $eventType);
     }
 }

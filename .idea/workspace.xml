@@ -4,7 +4,7 @@
     <list default="true" id="d56d7197-c297-47ec-8982-f01efbbfea45" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/CalendarEventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CalendarEventController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Fetcher/CalendarEventFetcher.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Fetcher/CalendarEventFetcher.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/SaveCalendarEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/CalendarEventManager.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +122,7 @@
       <workItem from="1578606230035" duration="1108000" />
       <workItem from="1580142483744" duration="1576000" />
       <workItem from="1580147088143" duration="8873000" />
-      <workItem from="1580237416212" duration="8622000" />
+      <workItem from="1580237416212" duration="9559000" />
     </task>
     <servers />
   </component>
@@ -134,10 +134,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="640" y="257" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580146996461" />
-    <state x="714" y="142" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1580149852690">
+    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1580246413721">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="714" y="142" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580149852690" />
+    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580246413721" />
     <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1580243345010">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
