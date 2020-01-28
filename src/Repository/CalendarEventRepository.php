@@ -6,7 +6,6 @@ use App\Entity\CalendarEvent;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @method CalendarEvent|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,7 +15,6 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class CalendarEventRepository extends ServiceEntityRepository
 {
-    private $em;
 
     public function __construct(ManagerRegistry $registry)
     {
