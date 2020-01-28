@@ -6,7 +6,10 @@
         console.log(route);
         $.get(route, function (data) {
             $(".result").html(data);
-            console.log($data);
+        })
+        const route2 = "{{ path('read_calendar_event_by_id', {calendarEventId: '1'})|escape('js') }}";
+        $.get(route2, function (data) {
+            $(".result").html(data);
         });
     </script>
 {% endblock %}

@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d56d7197-c297-47ec-8982-f01efbbfea45" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Controller/CalendarEventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CalendarEventController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/symfony.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/symfony.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html.twig" afterDir="false" />
     </list>
@@ -84,6 +85,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/twig-pack" />
       <path value="$PROJECT_DIR$/vendor/symfony/twig-bridge" />
       <path value="$PROJECT_DIR$/vendor/symfony/twig-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/asset" />
     </include_path>
   </component>
   <component name="ProjectId" id="1WAwgSNWejPgBqmr0srzq984rjA" />
@@ -127,7 +129,7 @@
       <workItem from="1578606230035" duration="1108000" />
       <workItem from="1580142483744" duration="1576000" />
       <workItem from="1580147088143" duration="8873000" />
-      <workItem from="1580237416212" duration="11405000" />
+      <workItem from="1580237416212" duration="11677000" />
     </task>
     <servers />
   </component>
