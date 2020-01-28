@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CalendarEventRepository")
@@ -17,16 +18,20 @@ class CalendarEvent
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Username cannot be empty")
+     * @Assert\Length(min="3", minMessage="Username should have at least 3 characters")
      * @ORM\Column(type="string", length=200, nullable=true)
      */
     private $username;
 
     /**
+     * @Assert\NotBlank(message="Event Type cannot be empty")
      * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $event_type;
 
     /**
+     * @Assert\NotBlank(message="Event Type cannot be empty")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $event_date;

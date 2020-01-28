@@ -23,13 +23,8 @@ class CalendarEventRepository extends ServiceEntityRepository
         $this->em = $em;
     }
 
-    public function saveCalendarEvent(string $username, \DateTime $eventDate, string $eventType): void
+    public function saveCalendarEvent(CalendarEvent $calendarEvent): void
     {
-        $calendarEvent = new CalendarEvent();
-        $calendarEvent
-            ->setUsername($username)
-            ->setEventDate($eventDate)
-            ->setEventType($eventType);
         $this->em->persist($calendarEvent);
         $this->em->flush();
     }
