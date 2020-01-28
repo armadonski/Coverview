@@ -43,4 +43,18 @@ class CalendarEventFetcher
         }
         return new JsonResponse($error, Response::HTTP_INTERNAL_SERVER_ERROR);
     }
+
+    public function removeCalendarEvent(int $calendarEventId): JsonResponse
+    {
+        try {
+            $calendarEvent = $this->em->getRepository(CalendarEvent::class)->find($calendarEventId);
+            $this->em->remove($calendarEvent);
+            $this->em->flush();
+            return new JsonResponse('Calendar Event removed', Response::HTTP_OK);
+        } catch (\Exception $e) {
+            $error = $e->getMessage();
+            $this->logger->error($error);
+        }
+        return new JsonResponse($error, Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
 }

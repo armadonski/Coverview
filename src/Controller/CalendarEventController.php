@@ -54,4 +54,13 @@ class CalendarEventController
 
         return $this->saveCalendarEvent->validateAndSaveCalendarEvent($username, $date, $eventType);
     }
+    /**
+     * @Route("/delete/{calendarEventId}",name="delete_calendar_event_by_id",methods={"DELETE"})
+     * @param int $calendarEventId
+     * @return JsonResponse
+     */
+    public function deleteCalendarEventById(int $calendarEventId): JsonResponse
+    {
+        return $this->calendarEventFetcher->removeCalendarEvent($calendarEventId);
+    }
 }
