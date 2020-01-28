@@ -77,7 +77,7 @@ class CalendarEvent
         return $this;
     }
 
-    public function serialize(): array
+    public function serialize(): ?array
     {
         return [
             'id' => $this->getId(),

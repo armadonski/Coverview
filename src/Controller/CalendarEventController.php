@@ -30,6 +30,16 @@ class CalendarEventController
     }
 
     /**
+     * @Route("/read/{calendarEventId}",name="read_calendar_event_by_id",methods={"GET"})
+     * @param int $calendarEventId
+     * @return JsonResponse
+     */
+    public function readCalendarEventById(int $calendarEventId): JsonResponse
+    {
+        return $this->calendarEventFetcher->fetchCalendarEvent($calendarEventId);
+    }
+
+    /**
      * @Route("/create",name="create_event",methods={"POST"})
      * @param Request $request
      * @return JsonResponse
