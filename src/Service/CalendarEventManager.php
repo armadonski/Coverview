@@ -3,8 +3,6 @@
 namespace App\Service;
 
 use App\Entity\CalendarEvent;
-use App\Repository\CalendarEventRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
