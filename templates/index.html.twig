@@ -1,4 +1,12 @@
 {% extends "base.html.twig" %}
 {% block body %}
     Hello world!
+    <script>
+        const route = "{{ path('read_all_calendar_events')|escape('js') }}";
+        console.log(route);
+        $.get(route, function (data) {
+            $(".result").html(data);
+            console.log($data);
+        });
+    </script>
 {% endblock %}

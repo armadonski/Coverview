@@ -22,7 +22,7 @@ class CalendarEventController
     }
 
     /**
-     * @Route("/read_all",name="read_all_calendar_event",methods={"GET"})
+     * @Route("/read_all",name="read_all_calendar_events",methods={"GET"})
      */
     public function readAllCalendarEventsAction(): JsonResponse
     {
