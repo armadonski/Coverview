@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Fetcher\CalendarEventFetcher;
 use App\Service\SaveCalendarEvent;
 use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,10 +13,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class CalendarEventController
 {
     private $saveCalendarEvent;
+    private $calendarEventFetcher;
 
-    public function __construct(SaveCalendarEvent $saveCalendarEvent)
+    public function __construct(SaveCalendarEvent $saveCalendarEvent, CalendarEventFetcher $calendarEventFetcher)
     {
         $this->saveCalendarEvent = $saveCalendarEvent;
+        $this->calendarEventFetcher = $calendarEventFetcher;
+    }
+
+    /**
+     * @Route("/read_all",name="read_all_calendar_event",methods={"GET"})
+     */
+    public function readAllCalendarEventsAction(): JsonResponse
+    {
+        return $this->calendarEventFetcher->fetchAllCalendarEvents();
     }
 
     /**

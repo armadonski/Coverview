@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\CalendarEvent;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -21,6 +22,15 @@ class CalendarEventRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, CalendarEvent::class);
 
+    }
+
+    public function getAllCalendarEvents($orderBy = 'Desc')
+    {
+        return $this->createQueryBuilder('ce')
+            ->select('ce.id', 'ce.username', 'ce.event_date', 'ce.event_type')
+            ->orderBy('ce.id', $orderBy)
+            ->getQuery()
+            ->getResult(AbstractQuery::HYDRATE_ARRAY);
     }
 
     // /**
