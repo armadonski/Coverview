@@ -17,17 +17,12 @@ class CalendarEventRepository extends ServiceEntityRepository
 {
     private $em;
 
-    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CalendarEvent::class);
-        $this->em = $em;
+
     }
 
-    public function saveCalendarEvent(CalendarEvent $calendarEvent): void
-    {
-        $this->em->persist($calendarEvent);
-        $this->em->flush();
-    }
     // /**
     //  * @return CalendarEvent[] Returns an array of CalendarEvent objects
     //  */
