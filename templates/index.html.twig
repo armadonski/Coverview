@@ -2,17 +2,7 @@
 {% block body %}
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('timeline');
 
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: ['dayGrid', 'interaction'],
-                defaultView: 'dayGridWeek',
-                height: 100
-            });
-
-            calendar.render();
-        });
 
         const route = "{{ path('read_all_calendar_events')|escape('js') }}";
         const route2 = "{{ path('read_calendar_event_by_id', {calendarEventId: '1'})|escape('js') }}";
