@@ -59,28 +59,21 @@
         $.when(getAllDataAjaxCall(), getUserDataAjaxCall()).done((data, userDataAjaxCall) => {
             data = data[0];
             const users = userDataAjaxCall[0];
-            let dates = setWeekDates(1, 7);
+            let dates = setWeekDates(0, 6);
             const dateObjects = dates.map(date => {
                 return {name: date, type: "text", width: 150}
             });
             const userData = users.map(item => {
                 return {"Users": item.fullName, id: item.id}
             });
-
-            data.map(entry => {
-                let entryDate = moment(entry.event_date.date).format('DD-MM-YYYY');
-                userData.map(item => {
-                    dates.forEach(date => {
-                      console.log(item.id === entry.userId)
-                        if (date === entryDate && item.id === entry.userId) {
-                            item[entryDate] = entry.event_type;
-                        } else if (date !== entry && item.id === entry.userId) {
-                        }
-                    });
-                });
+            data.map((entry) => {
+                userData.map((user) => {
+                    let entryDate = moment(entry.event_date.date).format('DD-MM-YYYY');
+                    if (user.id === entry.userId) {
+                        user[entryDate] = entry.event_type
+                    }
+                })
             });
-            
-
             const gridProperties = {
                 width: "100%",
                 height: "750px",
