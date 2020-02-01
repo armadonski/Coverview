@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d56d7197-c297-47ec-8982-f01efbbfea45" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/calendar/daygrid.main.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/calendar/main.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,9 +100,19 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/js" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="D:\Software\PhpStorm 2019.3.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\symfony\public\js" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\symfony\public\css\jsGrid" />
+      <recent name="D:\Projects\symfony\public\css" />
+      <recent name="D:\Projects\symfony\public\js\libraries" />
+    </key>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -128,7 +142,10 @@
       <workItem from="1580142483744" duration="1576000" />
       <workItem from="1580147088143" duration="8873000" />
       <workItem from="1580237416212" duration="11981000" />
-      <workItem from="1580327661838" duration="2416000" />
+      <workItem from="1580327661838" duration="3584000" />
+      <workItem from="1580464543892" duration="671000" />
+      <workItem from="1580563029613" duration="1739000" />
+      <workItem from="1580568659329" duration="5824000" />
     </task>
     <servers />
   </component>
@@ -156,14 +173,19 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="163" key="SettingsEditor/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1578606186028" />
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1580577761924">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580577761924" />
     <state x="661" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1578605821393">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="661" y="345" key="com.intellij.ide.util.TipDialog/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1578605821393" />
-    <state x="656" y="118" width="607" height="804" key="find.popup" timestamp="1580155313375">
+    <state x="656" y="118" width="607" height="804" key="find.popup" timestamp="1580564514361">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="656" y="118" width="607" height="804" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580155313375" />
+    <state x="656" y="118" width="607" height="804" key="find.popup/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580564514361" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1580238331477">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

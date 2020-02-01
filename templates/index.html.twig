@@ -1,14 +1,74 @@
 {% extends "base.html.twig" %}
 {% block body %}
-
+    <div id="jsGrid"></div>
     <script>
+        const DATE_FORMAT = 'DD-MM-YYYY';
+        const setWeekDates = (startOfWeek, endOfWeek) => {
+            let i;
+            const selectedWeekDays = [];
+            for (i = startOfWeek; i <= endOfWeek; i++) {
+                selectedWeekDays.push(moment().day(i).format(DATE_FORMAT));
+            }
+            return selectedWeekDays;
+        };
+        const setMonthDates = (selectedMonth) => {
+            let i;
+            const selectedMonthDays = [];
+            const daysInMonth = moment().month(selectedMonth).daysInMonth();
 
+            for (i = 1; i <= daysInMonth; i++) {
+                selectedMonthDays.push(moment().month(selectedMonth).date(i).format(DATE_FORMAT));
+            }
+            return selectedMonthDays;
+        };
+        const setYearDates = (year) => {
+            let i;
+            const selectedYearDates = [];
+            for (let i = 0; i < 366; i++) {
+                selectedYearDates.push(moment().year(year).dayOfYear(i).format(DATE_FORMAT));
+            }
+            return selectedYearDates;
+        };
 
         const route = "{{ path('read_all_calendar_events')|escape('js') }}";
         const route2 = "{{ path('read_calendar_event_by_id', {calendarEventId: '1'})|escape('js') }}";
+
+        let getAllData = [];
+        let userObject = [];
+
+        const getAllDataAjaxCall = () => {
+            return $.ajax({
+                url: route,
+                type: 'GET',
+                cache: false,
+            });
+        };
+
+        getAllDataAjaxCall().done(data => {
+
+            const userData = [];
+            const gridProperties = {
+                width: "100%",
+                height: "400px",
+                inserting: false,
+                editing: false,
+                sorting: false,
+                paging: false,
+                data: userData,
+                fields: [{name: "Users", type: "text", width: 200}]
+            };
+            data.forEach((item => {
+                userData.push({"Users": item.username,});
+            }));
+            setWeekDates(1, 7).forEach(item => {
+                gridProperties.fields.push({name: item, type: "text", width: 200,})
+            });
+            
+            $("#jsGrid").jsGrid(gridProperties);
+
+        });
+
     </script>
-    <div id="calendar">
-        <div id='timeline'></div>
-    </div>
-    <script src="{{ asset('js/calendar.js') }}"></script>
+
+
 {% endblock %}

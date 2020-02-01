@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
-
+        <link type="text/css" rel="stylesheet" href= "css/jsGrid/jsgrid-theme.css"/>
+        <link type="text/css" rel="stylesheet" href="css/jsGrid/jsgrid.css"/>
     {% endblock %}
     {% block javascripts %}
-
+        <script src="{{ asset('js/libraries/jquery-3.4.1.min.js') }}"></script>
+        <script src="{{ asset('js/libraries/moment.js') }}"></script>
+        <script type="text/javascript" src={{ asset('js/libraries/jsGrid/jsgrid.min.js') }}></script>
     {% endblock %}
 </head>
 <body>
