@@ -45,8 +45,26 @@
         };
 
         getAllDataAjaxCall().done(data => {
+            console.log(data);
+            let dates = setWeekDates(1, 7);
+            const dateObjects = dates.map(date => {
+                return {name: date, type: "text", width: 200}
+            });
+            const userData = data.map(item => {
+                return {"Users": item.username}
+            });
+            data.map(entry => {
+                let entryDate = moment(entry.event_date.date).format('DD-MM-YYYY');
+                userData.map(item => {
+                    dates.forEach(date => {
+                        if (date === entryDate && item.Users === entry.username) {
+                            item[entryDate] = entry.event_type;
+                        }
+                    });
+                });
+            });
 
-            const userData = [];
+            console.log(userData);
             const gridProperties = {
                 width: "100%",
                 height: "400px",
@@ -55,15 +73,19 @@
                 sorting: false,
                 paging: false,
                 data: userData,
-                fields: [{name: "Users", type: "text", width: 200}]
+                fields: [{name: "Users", type: "text", width: 200},]
             };
-            data.forEach((item => {
-                userData.push({"Users": item.username,});
-            }));
-            setWeekDates(1, 7).forEach(item => {
-                gridProperties.fields.push({name: item, type: "text", width: 200,})
+            dateObjects.forEach(dateObject => {
+                gridProperties.fields.push(dateObject)
             });
-            
+
+
+            //
+            // dates.forEach(item => {
+            //     gridProperties.fields.push({name: item, type: "text", width: 200})
+            // });
+
+
             $("#jsGrid").jsGrid(gridProperties);
 
         });
