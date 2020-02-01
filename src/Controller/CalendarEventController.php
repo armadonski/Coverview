@@ -48,11 +48,11 @@ class CalendarEventController
     public function createAction(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-        $username = $data['username'];
+        $userId = $data['userId'];
         $date = new \DateTime($data['eventDate']);
         $eventType = $data['eventType'];
 
-        return $this->saveCalendarEvent->validateAndSaveCalendarEvent($username, $date, $eventType);
+        return $this->saveCalendarEvent->validateAndSaveCalendarEvent($userId, $date, $eventType);
     }
 
     /**
@@ -74,9 +74,9 @@ class CalendarEventController
     public function updateCalendarEventById(int $calendarEventId, Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-        $username = $data['username'];
+        $userId = $data['userId'];
         $date = new \DateTime($data['eventDate']);
         $eventType = $data['eventType'];
-        return $this->saveCalendarEvent->validateAndUpdateCalendarEvent($calendarEventId, $username, $date, $eventType);
+        return $this->saveCalendarEvent->validateAndUpdateCalendarEvent($calendarEventId, $userId, $date, $eventType);
     }
 }

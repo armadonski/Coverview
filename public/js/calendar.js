@@ -1,9 +1,9 @@
 
 
-$.get(route, function (data) {
+$.get(readAllEventsRoute, function (data) {
     console.log(data);
 });
 
-$.get(route2, function (data) {
+$.get(readEventByIdRoute, function (data) {
     console.log(data);
 });

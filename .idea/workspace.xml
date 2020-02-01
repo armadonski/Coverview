@@ -2,11 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d56d7197-c297-47ec-8982-f01efbbfea45" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entity/Users.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200201203919.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/UsersRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Fetcher/UserFetcher.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/calendar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/CalendarEventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CalendarEventController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/CalendarEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/CalendarEvent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/CalendarEventRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CalendarEventRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/UsersRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UsersRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/CalendarEventManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/CalendarEventManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,13 +111,13 @@
     <property name="ts.external.directory.path" value="D:\Software\PhpStorm 2019.3.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Projects\symfony\public\js" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Projects\symfony\public\js\libraries" />
       <recent name="D:\Projects\symfony\public\css\jsGrid" />
       <recent name="D:\Projects\symfony\public\css" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\symfony\public\js" />
     </key>
   </component>
   <component name="ServiceViewManager">
@@ -145,7 +151,8 @@
       <workItem from="1580327661838" duration="3584000" />
       <workItem from="1580464543892" duration="671000" />
       <workItem from="1580563029613" duration="1739000" />
-      <workItem from="1580568659329" duration="15866000" />
+      <workItem from="1580568659329" duration="16133000" />
+      <workItem from="1580590402645" duration="3385000" />
     </task>
     <servers />
   </component>
@@ -157,18 +164,21 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="640" y="257" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580146996461" />
-    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1580246413721">
+    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1580593436063">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580246413721" />
-    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1580243345010">
+    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580593436063" />
+    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1580593453300">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580243345010" />
-    <state x="794" y="444" key="NewPhpFileDialog" timestamp="1580327684152">
+    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580593453300" />
+    <state x="794" y="444" key="NewPhpFileDialog" timestamp="1580593382950">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="794" y="444" key="NewPhpFileDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580327684152" />
+    <state x="794" y="444" key="NewPhpFileDialog/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580593382950" />
     <state x="461" y="163" key="SettingsEditor" timestamp="1578606186028">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -181,14 +191,16 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="661" y="345" key="com.intellij.ide.util.TipDialog/1920.0.1920.1040/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1578605821393" />
-    <state x="656" y="118" width="607" height="804" key="find.popup" timestamp="1580564514361">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2576" y="118" width="607" height="804" key="find.popup" timestamp="1580590618146">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="656" y="118" width="607" height="804" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580155313375" />
-    <state x="656" y="118" width="607" height="804" key="find.popup/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580564514361" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1580238331477">
+    <state x="656" y="118" width="607" height="804" key="find.popup/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580590431231" />
+    <state x="2576" y="118" width="607" height="804" key="find.popup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1580590618146" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1580594531103">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1580238331477" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580594531103" />
   </component>
 </project>

@@ -22,12 +22,12 @@ class CalendarEventManager
         $this->em = $em;
     }
 
-    public function validateAndSaveCalendarEvent(string $username, \DateTime $date, string $eventType): JsonResponse
+    public function validateAndSaveCalendarEvent(string $userId, \DateTime $date, string $eventType): JsonResponse
     {
 
         try {
             $calendarEvent = new CalendarEvent();
-            return $this->setEntityDataAndValidate($calendarEvent, $username, $date, $eventType);
+            return $this->setEntityDataAndValidate($calendarEvent, $userId, $date, $eventType);
 
         } catch (\Exception $e) {
             $error = $e->getMessage();
@@ -36,11 +36,11 @@ class CalendarEventManager
         return new JsonResponse($error, Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
-    public function validateAndUpdateCalendarEvent(int $calendarEventId, string $username, \DateTime $date, string $eventType): JsonResponse
+    public function validateAndUpdateCalendarEvent(int $calendarEventId, string $userId, \DateTime $date, string $eventType): JsonResponse
     {
         try {
             $calendarEvent = $this->em->getRepository(CalendarEvent::class)->find($calendarEventId);
-            return $this->setEntityDataAndValidate($calendarEvent, $username, $date, $eventType);
+            return $this->setEntityDataAndValidate($calendarEvent, $userId, $date, $eventType);
         } catch (\Exception $e) {
             $error = $e->getMessage();
             $this->logger->error($error);
@@ -48,10 +48,10 @@ class CalendarEventManager
         return new JsonResponse($error, Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
-    private function setEntityDataAndValidate(CalendarEvent $calendarEvent, string $username, \DateTime $date, string $eventType): ?JsonResponse
+    private function setEntityDataAndValidate(CalendarEvent $calendarEvent, string $userId, \DateTime $date, string $eventType): ?JsonResponse
     {
         $calendarEvent
-            ->setUsername($username)
+            ->setUserId($userId)
             ->setEventDate($date)
             ->setEventType($eventType);
         $errors = $this->validator->validate($calendarEvent);

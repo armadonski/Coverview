@@ -20,7 +20,7 @@ class CalendarEvent
     /**
      * @Assert\NotBlank(message="User id be empty")
      * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="User.php", inversedBy="id")
      */
     private $userId;
 
@@ -41,14 +41,14 @@ class CalendarEvent
         return $this->id;
     }
 
-    public function getUsername(): ?string
+    public function getUserId(): ?string
     {
-        return $this->username;
+        return $this->userId;
     }
 
-    public function setUsername(?string $username): self
+    public function setUserId(?string $userId): self
     {
-        $this->username = $username;
+        $this->userId = $userId;
 
         return $this;
     }
@@ -81,7 +81,7 @@ class CalendarEvent
     {
         return [
             'id' => $this->getId(),
-            'username' => $this->getUsername(),
+            'userId' => $this->getUserId(),
             'eventDate' => $this->getEventDate(),
             'eventType' => $this->getEventType()
         ];

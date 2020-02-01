@@ -25,7 +25,7 @@ class CalendarEventRepository extends ServiceEntityRepository
     public function getAllCalendarEvents($orderBy = 'Desc')
     {
         return $this->createQueryBuilder('ce')
-            ->select('ce.id', 'ce.username', 'ce.event_date', 'ce.event_type')
+            ->select('ce.id', 'ce.userId', 'ce.event_date', 'ce.event_type')
             ->orderBy('ce.id', $orderBy)
             ->getQuery()
             ->getResult(AbstractQuery::HYDRATE_ARRAY);

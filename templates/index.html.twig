@@ -36,40 +36,51 @@
             return selectedYearDates;
         };
 
-        const route = "{{ path('read_all_calendar_events')|escape('js') }}";
-        const route2 = "{{ path('read_calendar_event_by_id', {calendarEventId: '1'})|escape('js') }}";
-
-        let getAllData = [];
-        let userObject = [];
+        const readAllEventsRoute = "{{ path('read_all_calendar_events')|escape('js') }}";
+        const readEventByIdRoute = "{{ path('read_calendar_event_by_id', {calendarEventId: '1'})|escape('js') }}";
+        const readAllUsersRoute = "{{ path('read_all_users')|escape('js') }}";
 
         const getAllDataAjaxCall = () => {
             return $.ajax({
-                url: route,
+                url: readAllEventsRoute,
                 type: 'GET',
                 cache: false,
             });
         };
 
-        getAllDataAjaxCall().done(data => {
+        const getUserDataAjaxCall = () => {
+            return $.ajax({
+                url: readAllUsersRoute,
+                type: 'GET',
+                cache: false,
+            });
+        };
+
+        $.when(getAllDataAjaxCall(), getUserDataAjaxCall()).done((data, userDataAjaxCall) => {
+            data = data[0];
+            const users = userDataAjaxCall[0];
             let dates = setWeekDates(1, 7);
             const dateObjects = dates.map(date => {
                 return {name: date, type: "text", width: 150}
             });
-            const userData = data.map(item => {
-                return {"Users": item.username}
+            const userData = users.map(item => {
+                return {"Users": item.fullName, id: item.id}
             });
 
             data.map(entry => {
                 let entryDate = moment(entry.event_date.date).format('DD-MM-YYYY');
                 userData.map(item => {
                     dates.forEach(date => {
-                        if (date === entryDate && item.Users === entry.username) {
+                      console.log(item.id === entry.userId)
+                        if (date === entryDate && item.id === entry.userId) {
                             item[entryDate] = entry.event_type;
-                        } else if (date !== entry && item.Users === entry.username) {
+                        } else if (date !== entry && item.id === entry.userId) {
                         }
                     });
                 });
             });
+            
+
             const gridProperties = {
                 width: "100%",
                 height: "750px",
@@ -83,18 +94,8 @@
             dateObjects.forEach(dateObject => {
                 gridProperties.fields.push(dateObject)
             });
-            console.log(dateObjects)
-
-            //
-            // dates.forEach(item => {
-            //     gridProperties.fields.push({name: item, type: "text", width: 200})
-            // });
-
-
             $("#jsGrid").jsGrid(gridProperties);
-
-        });
-
+        })
     </script>
 
 
