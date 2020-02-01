@@ -9,8 +9,8 @@
         <link type="text/css" rel="stylesheet" href="css/jsGrid/jsgrid.min.css"/>
     {% endblock %}
     {% block javascripts %}
-        <script type="text/javascript" src={{ asset('js/libraries/bootstrap/bootstrap.min.js') }}></script>
         <script src="{{ asset('js/libraries/jquery-3.4.1.min.js') }}"></script>
+        <script type="text/javascript" src={{ asset('js/libraries/bootstrap/bootstrap.min.js') }}></script>
         <script src="{{ asset('js/libraries/moment.js') }}"></script>
         <script type="text/javascript" src={{ asset('js/libraries/jsGrid/jsgrid.min.js') }}></script>
     {% endblock %}
@@ -31,9 +31,15 @@
                     <h5 class="card-title">Calendar views</h5>
                     <p class="card-text">
                     <ul style="list-style-type:none;padding-left: 0">
-                        <li><button>Weekly view</button></li>
-                        <li><button>Monthly view</button></li>
-                        <li><button>Yearly view </button></li>
+                        <li>
+                            <button>Weekly view</button>
+                        </li>
+                        <li>
+                            <button>Monthly view</button>
+                        </li>
+                        <li>
+                            <button>Yearly view</button>
+                        </li>
                     </ul>
                     </p>
                 </div>

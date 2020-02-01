@@ -18,11 +18,11 @@ class CalendarEvent
     private $id;
 
     /**
-     * @Assert\NotBlank(message="Username cannot be empty")
-     * @Assert\Length(min="3", minMessage="Username should have at least 3 characters")
-     * @ORM\Column(type="string", length=200, nullable=true)
+     * @Assert\NotBlank(message="User id be empty")
+     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="id")
      */
-    private $username;
+    private $userId;
 
     /**
      * @Assert\NotBlank(message="Event Type cannot be empty")
