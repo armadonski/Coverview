@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d56d7197-c297-47ec-8982-f01efbbfea45" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -106,9 +107,9 @@
       <recent name="D:\Projects\symfony\public\js" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\symfony\public\js\libraries" />
       <recent name="D:\Projects\symfony\public\css\jsGrid" />
       <recent name="D:\Projects\symfony\public\css" />
-      <recent name="D:\Projects\symfony\public\js\libraries" />
     </key>
   </component>
   <component name="ServiceViewManager">
@@ -142,7 +143,7 @@
       <workItem from="1580327661838" duration="3584000" />
       <workItem from="1580464543892" duration="671000" />
       <workItem from="1580563029613" duration="1739000" />
-      <workItem from="1580568659329" duration="9843000" />
+      <workItem from="1580568659329" duration="12117000" />
     </task>
     <servers />
   </component>
