@@ -87,7 +87,9 @@
             $('.popover-dismiss').popover({
                 trigger: 'focus'
             });
+            const popoverCreate = "data-toggle='popover' data-trigger='focus' title='Create a new event' data-content=And here s some amazing content. It s very engaging. Right?";
 
+            const popoverUpdate = "";
             data = data[0];
             const users = userDataAjaxCall[0];
             let dates = setWeekDates(0, 6);
@@ -105,9 +107,9 @@
                 userData.map((user) => {
                     let entryDate = moment(entry.event_date.date).format('DD-MM-YYYY');
                     if (user.id === entry.userId) {
-                        user[entryDate] = "<button type='button' class='btn btn-primary' data-toggle='popover' data-trigger='focus' title='Popover title' data-content='And here s some amazing content. It s very engaging. Right?'>" + entry.event_type + "</button>"
+                        user[entryDate] = "<button type='button' class='btn btn-primary' data-toggle='popover' data-trigger='focus' title='Popover title' data-content='And here s some amazing content. It s very engaging. Right?' style=\"width: 100%;height: 100%\">" + entry.event_type + "</button>"
                     } else {
-                        user[entryDate] = "<button type='button' class='btn btn-primary' data-toggle='popover' data-trigger='focus' title='Popover title' data-content='And here s some amazing content. It s very engaging. Right?'>Select Event Type</button>"
+                        user[entryDate] = `<button type='button' class='btn btn-light' ${popoverCreate} style="width: 100%;height: 100%">New </button>`
                     }
                 })
             });
