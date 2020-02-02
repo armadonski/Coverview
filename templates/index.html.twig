@@ -97,77 +97,75 @@
         };
 
 
-        $.when(getAllDataAjaxCall(), getUserDataAjaxCall()).done((data, userDataAjaxCall) => {
-            $(function () {
-                $('[data-toggle="popover"]').popover()
-            });
-            $(document).on('click', '.create', function () {
-                createAjaxCall(JSON.stringify({
-                    userId: "1",
-                    eventDate: "12-03-2020",
-                    eventType: "Work from Home"
-                }));
-            });
-            // $('.popover-dismiss').popover({
-            //     trigger: 'focus'
-            // });
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            });
-            data = data[0];
-            const users = userDataAjaxCall[0];
-            let dates = setWeekDates(0, 6);
-            const dateObjects = dates.map(date => {
-                return {
-                    name: date,
-                    type: "text",
-                    width: 150,
-                }
-            });
-
-            const userData = users.map(item => {
-                return {"Users": item.fullName, id: item.id}
-            });
-
-
-            dates.map((date) => {
-                data.map((entry) => {
-                    userData.map((user) => {
-                        let entryDate = moment(entry.event_date.date).format('DD-MM-YYYY');
-                        if (user.id === entry.userId) {
-                            user[entryDate] = `<a class="btn btn-light" href="#" data-toggle='popover' data-trigger='focus' title='Popover title' data-content='dsadsa' style='width: 100%;height: 100%'>${entry.event_type}</a>`;
-                        } else {
-                            const createButton = `<ul><li><a href="#" class="create">Work from home</a></li>
-<li><a  href="#" class="create">Concediu</a></li>
-<li><a href="#" class="create">Training</a></li>
-<li><a href="#" class="create">Suport</a></li></ul>
-<input type="hidden" id="foo" name="zyx" value="bar" />
-`;
-                            user[date] = `<a class="btn btn-light" href="#" data-toggle='popover' data-trigger='focus' title='Select Event Type' data-content='${createButton}' data-html='true'  style='width: 100%;height: 100%'>New</a>`;
-
-                            console.log(user)
-                        }
-                    })
+        const loadGrid = () => {
+            $.when(getAllDataAjaxCall(), getUserDataAjaxCall()).done((data, userDataAjaxCall) => {
+                $(function () {
+                    $('[data-toggle="popover"]').popover()
                 });
-            });
 
-            const gridProperties = {
-                width: "100%",
-                height: "750px",
-                inserting: false,
-                editing: false,
-                sorting: false,
-                paging: false,
-                selecting: true,
-                data: userData,
-                fields: [{name: "Users", type: "text", width: 200, editing: false},]
-            };
-            dateObjects.forEach(dateObject => {
-                gridProperties.fields.push(dateObject)
-            });
-            $("#jsGrid").jsGrid(gridProperties);
-        })
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                });
+                data = data[0];
+                const users = userDataAjaxCall[0];
+                let dates = setWeekDates(0, 6);
+                const dateObjects = dates.map(date => {
+                    return {
+                        name: date,
+                        type: "text",
+                        width: 150,
+                    }
+
+                });
+                const userData = users.map(item => {
+                    return {"Users": item.fullName, id: item.id}
+                });
+
+                dates.map((date) => {
+                    data.map((entry) => {
+                        userData.map((user) => {
+                            let entryDate = moment(entry.event_date.date).format('DD-MM-YYYY');
+                            if (user.id === entry.userId) {
+                                user[entryDate] = `<a class="btn btn-light" href="#" data-toggle='popover' data-trigger='focus' title='Popover title' data-content='dsadsa' style='width: 100%;height: 100%'>${entry.event_type}</a>`;
+                            } else {
+                                const createButton = (id, userId) => {
+                                    return `<ul><li><a href="#"  id =${id}/${userId} class="create">Work from home</a></li>
+<li><a  href="#" class="create" id =${id}/${userId}>Concediu</a></li>
+<li><a href="#" class="create" id =${id}/${userId}>Training</a></li>
+<li><a href="#" class="create" id =${id}/${userId}>Suport</a></li></ul>`
+                                };
+                                user[date] = `<a class="btn btn-light" href="#" data-toggle='popover' data-trigger='focus' title='Select Event Type' data-content='${createButton(date, user.id)}' data-html='true'  style='width: 100%;height: 100%'>New</a>`;
+                            }
+                        })
+                    });
+                });
+
+                const gridProperties = {
+                    width: "100%",
+                    height: "750px",
+                    inserting: false,
+                    editing: false,
+                    sorting: false,
+                    paging: false,
+                    selecting: true,
+                    data: userData,
+                    fields: [{name: "Users", type: "text", width: 200, editing: false},]
+                };
+                dateObjects.forEach(dateObject => {
+                    gridProperties.fields.push(dateObject)
+                });
+                $("#jsGrid").jsGrid(gridProperties);
+            })
+        }
+        loadGrid();
+        $(document).on('click', '.create', function (e) {
+            loadGrid();
+            const data = (e.target.id.split("/"));
+            createAjaxCall(JSON.stringify({
+                userId: data[1],
+                eventDate: data[0],
+                eventType: e.target.innerText
+            }));
+        });
     </script>
-
-
 {% endblock %}
