@@ -45,6 +45,7 @@
         const readEventByIdRoute = "{{ path('read_calendar_event_by_id', {calendarEventId: '1'})|escape('js') }}";
         const readAllUsersRoute = "{{ path('read_all_users')|escape('js') }}";
         const createRoute = "{{ path('create_event')|escape('js') }}";
+        const updateRoute = "{{ path('update_calendar_event_by_id',{calendarEventId: 1})|escape('js') }}";
 
         const getPopOverAjaxCall = () => {
             return $.ajax({
@@ -96,7 +97,22 @@
 
         };
 
+        const updateAjaxCall = (data) => {
+            return $.ajax({
+                url: updateRoute + `/${data}`,
+                dataType: 'json',
+                type: 'put',
+                contentType: 'application/json',
+                processData: false,
+                success: function (data, textStatus, jQxhr) {
+                    $('#response pre').html(JSON.stringify(data));
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
 
+        };
         const loadGrid = () => {
             $.when(getAllDataAjaxCall(), getUserDataAjaxCall()).done((data, userDataAjaxCall) => {
                 $(function () {
@@ -122,11 +138,21 @@
                 });
 
                 dates.map((date) => {
+                    if (data.length === 0) {
+
+                    }
                     data.map((entry) => {
                         userData.map((user) => {
                             let entryDate = moment(entry.event_date.date).format('DD-MM-YYYY');
                             if (user.id === entry.userId) {
-                                user[entryDate] = `<a class="btn btn-light" href="#" data-toggle='popover' data-trigger='focus' title='Popover title' data-content='dsadsa' style='width: 100%;height: 100%'>${entry.event_type}</a>`;
+                                const updateButton = (id) => {
+                                    return `<ul><li><a href="#"  id =${id} class="update">Work from home</a></li>
+<li><a  href="#" class="update" id =${id}>Concediu</a></li>
+<li><a href="#" class="update" id =${id}>Training</a></li>
+<li><a href="#" class="update" id =${id}>Suport</a></li></ul>`
+                                };
+
+                                user[entryDate] = `<a class="btn btn-light" href="#" data-toggle='popover' data-trigger='focus' title='Popover title' data-content='${updateButton(entry.id)}' data-html='true' style='width: 100%;height: 100%'>${entry.event_type}</a>`;
                             } else {
                                 const createButton = (id, userId) => {
                                     return `<ul><li><a href="#"  id =${id}/${userId} class="create">Work from home</a></li>
@@ -166,6 +192,13 @@
                 eventDate: data[0],
                 eventType: e.target.innerText
             }));
+        });
+
+        $(document).on('click', '.update', function (e) {
+            const id = e.target.id
+            loadGrid();
+            console.log(id)
+            updateAjaxCall(id);
         });
     </script>
 {% endblock %}
