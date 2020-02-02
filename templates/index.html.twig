@@ -9,6 +9,8 @@
             </div>
         </div>
         {% include "footer.html.twig" %}
+
+
     </div>
     <script>
         const DATE_FORMAT = 'DD-MM-YYYY';
@@ -42,7 +44,7 @@
         const readAllEventsRoute = "{{ path('read_all_calendar_events')|escape('js') }}";
         const readEventByIdRoute = "{{ path('read_calendar_event_by_id', {calendarEventId: '1'})|escape('js') }}";
         const readAllUsersRoute = "{{ path('read_all_users')|escape('js') }}";
-        const createRoute = "{{ path('read_all_users')|escape('js') }}";
+        const createRoute = "{{ path('create_event')|escape('js') }}";
 
         const getPopOverAjaxCall = () => {
             return $.ajax({
@@ -76,20 +78,42 @@
             });
         };
 
+        const createAjaxCall = (data) => {
+            return $.ajax({
+                url: createRoute,
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json',
+                data: data,
+                processData: false,
+                success: function (data, textStatus, jQxhr) {
+                    $('#response pre').html(JSON.stringify(data));
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+
+        };
+
+
         $.when(getAllDataAjaxCall(), getUserDataAjaxCall()).done((data, userDataAjaxCall) => {
             $(function () {
-                $('[data-toggle="popover"]').popover({html: true})
+                $('[data-toggle="popover"]').popover()
             });
+            $(document).on('click', '.create', function () {
+                createAjaxCall(JSON.stringify({
+                    userId: "1",
+                    eventDate: "12-03-2020",
+                    eventType: "Work from Home"
+                }));
+            });
+            // $('.popover-dismiss').popover({
+            //     trigger: 'focus'
+            // });
             $(function () {
                 $('[data-toggle="tooltip"]').tooltip()
             });
-            $('.popover-dismiss').popover({
-                trigger: 'focus'
-            });
-
-
-            const popoverCreate = `<button type='button' class='btn btn-light' data-toggle='popover' data-trigger='focus' title='Create a new event' data-content='dsadsa' style="width: 100%;height: 100%">New </button>`;
-            const popoverUpdate = "";
             data = data[0];
             const users = userDataAjaxCall[0];
             let dates = setWeekDates(0, 6);
@@ -100,18 +124,28 @@
                     width: 150,
                 }
             });
+
             const userData = users.map(item => {
                 return {"Users": item.fullName, id: item.id}
             });
+
+
             dates.map((date) => {
                 data.map((entry) => {
                     userData.map((user) => {
                         let entryDate = moment(entry.event_date.date).format('DD-MM-YYYY');
                         if (user.id === entry.userId) {
-                            user[entryDate] = "<button type='button' class='btn btn-primary' data-toggle='popover' data-trigger='focus' title='Popover title' data-content='And here s some amazing content. It s very engaging. Right?' style=\"width: 100%;height: 100%\">" + entry.event_type + "</button>"
+                            user[entryDate] = `<a class="btn btn-light" href="#" data-toggle='popover' data-trigger='focus' title='Popover title' data-content='dsadsa' style='width: 100%;height: 100%'>${entry.event_type}</a>`;
                         } else {
+                            const createButton = `<ul><li><a href="#" class="create">Work from home</a></li>
+<li><a  href="#" class="create">Concediu</a></li>
+<li><a href="#" class="create">Training</a></li>
+<li><a href="#" class="create">Suport</a></li></ul>
+<input type="hidden" id="foo" name="zyx" value="bar" />
+`;
+                            user[date] = `<a class="btn btn-light" href="#" data-toggle='popover' data-trigger='focus' title='Select Event Type' data-content='${createButton}' data-html='true'  style='width: 100%;height: 100%'>New</a>`;
 
-                            user[date] = popoverCreate
+                            console.log(user)
                         }
                     })
                 });
@@ -131,7 +165,6 @@
             dateObjects.forEach(dateObject => {
                 gridProperties.fields.push(dateObject)
             });
-            console.log(userData)
             $("#jsGrid").jsGrid(gridProperties);
         })
     </script>
