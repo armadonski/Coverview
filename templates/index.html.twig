@@ -138,9 +138,6 @@
                 });
 
                 dates.map((date) => {
-                    if (data.length === 0) {
-
-                    }
                     data.map((entry) => {
                         userData.map((user) => {
                             let entryDate = moment(entry.event_date.date).format('DD-MM-YYYY');
@@ -164,7 +161,6 @@
                         })
                     });
                 });
-
                 const gridProperties = {
                     width: "100%",
                     height: "750px",
