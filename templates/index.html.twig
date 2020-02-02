@@ -151,8 +151,7 @@
 <li><a href="#" class="update" id =${id}>Training</a></li>
 <li><a href="#" class="update" id =${id}>Suport</a></li></ul>`
                                 };
-
-                                user[entryDate] = `<a class="btn btn-light" href="#" data-toggle='popover' data-trigger='focus' title='Popover title' data-content='${updateButton(entry.id)}' data-html='true' style='width: 100%;height: 100%'>${entry.event_type}</a>`;
+                                user[entryDate] = `<a class="btn btn-primary" href="#" data-toggle='popover' data-trigger='focus' title='Popover title' data-content='${updateButton(entry.id)}' data-html='true' style='width: 100%;height: 100%'>${entry.event_type}</a>`;
                             } else {
                                 const createButton = (id, userId) => {
                                     return `<ul><li><a href="#"  id =${id}/${userId} class="create">Work from home</a></li>
