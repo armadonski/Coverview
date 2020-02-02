@@ -1,11 +1,14 @@
 {% extends "base.html.twig" %}
 {% block body %}
-
-    <div class="card bg-light mb-3" style="height: 100%">
-        <div class="card-header">Header</div>
-        <div class="card-body">
-            <div id="jsGrid"></div>
+    <div class="container-fluid">
+        {% include "menu.html.twig" %}
+        <div class="col-10">
+            {% include"header.html.twig" %}
+            <div class="card-body">
+                <div id="jsGrid"></div>
+            </div>
         </div>
+        {% include "footer.html.twig" %}
     </div>
     <script>
         const DATE_FORMAT = 'DD-MM-YYYY';
@@ -39,6 +42,16 @@
         const readAllEventsRoute = "{{ path('read_all_calendar_events')|escape('js') }}";
         const readEventByIdRoute = "{{ path('read_calendar_event_by_id', {calendarEventId: '1'})|escape('js') }}";
         const readAllUsersRoute = "{{ path('read_all_users')|escape('js') }}";
+        const createRoute = "{{ path('read_all_users')|escape('js') }}";
+        const viewPopoverRoute = "{{ path('view_popover')|escape('js') }}";
+
+        const getPopOverAjaxCall = () => {
+            return $.ajax({
+                url: viewPopoverRoute,
+                type: 'GET',
+                cache: false,
+            });
+        };
 
         const getAllDataAjaxCall = () => {
             return $.ajax({
@@ -56,12 +69,34 @@
             });
         };
 
+        const postDataAjaxCall = () => {
+            return $.ajax({
+                url: readAllUsersRoute,
+                type: 'GET',
+                cache: false,
+            });
+        };
+
         $.when(getAllDataAjaxCall(), getUserDataAjaxCall()).done((data, userDataAjaxCall) => {
+            $(function () {
+                $('[data-toggle="popover"]').popover()
+            });
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            });
+            $('.popover-dismiss').popover({
+                trigger: 'focus'
+            });
+
             data = data[0];
             const users = userDataAjaxCall[0];
             let dates = setWeekDates(0, 6);
             const dateObjects = dates.map(date => {
-                return {name: date, type: "text", width: 150}
+                return {
+                    name: date,
+                    type: "text",
+                    width: 150,
+                }
             });
             const userData = users.map(item => {
                 return {"Users": item.fullName, id: item.id}
@@ -70,7 +105,9 @@
                 userData.map((user) => {
                     let entryDate = moment(entry.event_date.date).format('DD-MM-YYYY');
                     if (user.id === entry.userId) {
-                        user[entryDate] = entry.event_type
+                        user[entryDate] = "<button type='button' class='btn btn-primary' data-toggle='popover' data-trigger='focus' title='Popover title' data-content='And here s some amazing content. It s very engaging. Right?'>" + entry.event_type + "</button>"
+                    } else {
+                        user[entryDate] = "<button type='button' class='btn btn-primary' data-toggle='popover' data-trigger='focus' title='Popover title' data-content='And here s some amazing content. It s very engaging. Right?'>Select Event Type</button>"
                     }
                 })
             });
@@ -81,12 +118,14 @@
                 editing: false,
                 sorting: false,
                 paging: false,
+                selecting: true,
                 data: userData,
-                fields: [{name: "Users", type: "text", width: 200},]
+                fields: [{name: "Users", type: "text", width: 200, editing: false},]
             };
             dateObjects.forEach(dateObject => {
                 gridProperties.fields.push(dateObject)
             });
+            console.log(userData)
             $("#jsGrid").jsGrid(gridProperties);
         })
     </script>

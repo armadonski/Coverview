@@ -9,50 +9,14 @@
         <link type="text/css" rel="stylesheet" href="css/jsGrid/jsgrid.min.css"/>
     {% endblock %}
     {% block javascripts %}
-        <script src="{{ asset('js/libraries/jquery-3.4.1.min.js') }}"></script>
-        <script type="text/javascript" src={{ asset('js/libraries/bootstrap/bootstrap.min.js') }}></script>
-        <script src="{{ asset('js/libraries/moment.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/libraries/jquery-3.4.1.min.js') }}"></script>
+        <script type="text/javascript" src={{ asset('js/libraries/bootstrap/bootstrap.bundle.min.js') }}></script>
+        <script type="text/javascript" src="{{ asset('js/libraries/moment.js') }}"></script>
         <script type="text/javascript" src={{ asset('js/libraries/jsGrid/jsgrid.min.js') }}></script>
     {% endblock %}
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-11">
-            <div class="card bg-light mb-3">
-                <div class="card-header">Header</div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-1">
-            <div class="card bg-light mb-3" style="height: 100%;max-width: 18rem">
-                <div class="card-body">
-                    <h5 class="card-title">Calendar views</h5>
-                    <p class="card-text">
-                    <ul style="list-style-type:none;padding-left: 0">
-                        <li>
-                            <button>Weekly view</button>
-                        </li>
-                        <li>
-                            <button>Monthly view</button>
-                        </li>
-                        <li>
-                            <button>Yearly view</button>
-                        </li>
-                    </ul>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-10">
-            {% block body %}{% endblock %}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm"><p>Footer</p></div>
-    </div>
+{% block body %}{% endblock %}
 
-</div>
 </body>
 </html>
