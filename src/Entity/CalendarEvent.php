@@ -25,16 +25,18 @@ class CalendarEvent
     private $userId;
 
     /**
+     * @ORM\Column(name="event_type")
      * @Assert\NotBlank(message="Event Type cannot be empty")
      * @ORM\Column(type="string", length=20, nullable=true)
      */
-    private $event_type;
+    private $eventType;
 
     /**
+     * @ORM\Column(name="event_date")
      * @Assert\NotBlank(message="Event Type cannot be empty")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $event_date;
+    private $eventDate;
 
     public function getId(): ?int
     {
@@ -55,24 +57,24 @@ class CalendarEvent
 
     public function getEventType(): ?string
     {
-        return $this->event_type;
+        return $this->eventType;
     }
 
-    public function setEventType(?string $event_type): self
+    public function setEventType(?string $eventType): self
     {
-        $this->event_type = $event_type;
+        $this->eventType = $eventType;
 
         return $this;
     }
 
     public function getEventDate(): ?\DateTimeInterface
     {
-        return $this->event_date;
+        return $this->eventDate;
     }
 
-    public function setEventDate(?\DateTimeInterface $event_date): self
+    public function setEventDate(?\DateTimeInterface $eventDate): self
     {
-        $this->event_date = $event_date;
+        $this->eventDate = $eventDate;
 
         return $this;
     }

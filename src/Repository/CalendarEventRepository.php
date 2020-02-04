@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\CalendarEvent;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\AbstractQuery;
@@ -25,38 +26,48 @@ class CalendarEventRepository extends ServiceEntityRepository
     public function getAllCalendarEvents($orderBy = 'Desc')
     {
         return $this->createQueryBuilder('ce')
-            ->select('ce.id', 'ce.userId', 'ce.event_date', 'ce.event_type')
+            ->select('ce.id', 'ce.userId', 'ce.eventDate', 'ce.eventType')
             ->orderBy('ce.id', $orderBy)
             ->getQuery()
             ->getResult(AbstractQuery::HYDRATE_ARRAY);
     }
 
-    // /**
-    //  * @return CalendarEvent[] Returns an array of CalendarEvent objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getAllCalendarEventsAndUsers()
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('ce')
+            ->select('ce.id', 'ce.eventDate', 'ce.eventType', 'ce.userId', 'u.fullName')
+            ->leftJoin(User::class, 'u', 'WITH', 'u.id = ce.userId')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult(AbstractQuery::HYDRATE_ARRAY);
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?CalendarEvent
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+
+// /**
+//  * @return CalendarEvent[] Returns an array of CalendarEvent objects
+//  */
+/*
+public function findByExampleField($value)
+{
+    return $this->createQueryBuilder('c')
+        ->andWhere('c.exampleField = :val')
+        ->setParameter('val', $value)
+        ->orderBy('c.id', 'ASC')
+        ->setMaxResults(10)
+        ->getQuery()
+        ->getResult()
+    ;
+}
+*/
+
+/*
+public function findOneBySomeField($value): ?CalendarEvent
+{
+    return $this->createQueryBuilder('c')
+        ->andWhere('c.exampleField = :val')
+        ->setParameter('val', $value)
+        ->getQuery()
+        ->getOneOrNullResult()
+    ;
+}
+*/
 }

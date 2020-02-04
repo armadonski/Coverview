@@ -22,10 +22,32 @@ class CalendarEventFetcher
         $this->logger = $logger;
     }
 
+    /**
+     * Function that groups an array of associative arrays by some key.
+     *
+     * @param {String} $key Property to sort by.
+     * @param {Array} $data Array that stores multiple associative arrays.
+     * @return array
+     */
+    public function groupBy($key, $data): array
+    {
+        $result = array();
+
+        foreach ($data as $val) {
+            if (array_key_exists($key, $val)) {
+                $result[$val[$key]][] = $val;
+            } else {
+                $result[""][] = $val;
+            }
+        }
+
+        return $result;
+    }
+
     public function fetchAllCalendarEvents(string $order = 'DESC'): JsonResponse
     {
         try {
-            return new JsonResponse($this->em->getRepository(CalendarEvent::class)->getAllCalendarEvents(), Response::HTTP_OK);
+            return new JsonResponse($this->em->getRepository(CalendarEvent::class)->getAllCalendarEventsAndUsers(), Response::HTTP_OK);
         } catch (\Exception $e) {
             $error = $e->getMessage();
             $this->logger->error($error);
