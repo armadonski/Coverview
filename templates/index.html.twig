@@ -2,9 +2,9 @@
 {% block body %}
     <div class="container-fluid">
         {% include "menu.html.twig" %}
-        <div class="col-10">
+        <div class="col-10" >
             {% include"header.html.twig" %}
-            <div class="card-body">
+            <div class="card-body" >
                 <div id="jsGrid"></div>
             </div>
         </div>
@@ -73,9 +73,9 @@
             {Name: "United Kingdom", Id: 3}
         ];
 
-        const teamColumn = {name: 'Team', type: "text", width: 150, editing: false};
+        const teamColumn = {name: 'Team', type: "text", width: 80, editing: false};
         const columns = setWeekDates(0, 6).map(date => {
-            return {name: date, type: "text", width: 150, validate: "required"}
+            return {name: date, type: "text", width: 80, validate: "required", align: 'center'}
         });
         columns.unshift(teamColumn);
         const fields = columns;
@@ -107,7 +107,7 @@
             },
 
             width: "100%",
-            height: "750px",
+            height: "700px",
 
             inserting: false,
             editing: false,
