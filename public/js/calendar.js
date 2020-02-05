@@ -40,7 +40,7 @@ const getPopOverAjaxCall = () => {
     });
 };
 
-const getAllDataAjaxCall = () => {
+let getAllDataAjaxCall = () => {
     return $.ajax({
         url: readAllEventsRoute,
         type: 'GET',

@@ -1,16 +1,15 @@
 {% extends "base.html.twig" %}
 {% block body %}
     <div class="container-fluid">
+        {% include"header.html.twig" %}
         {% include "menu.html.twig" %}
-        <div class="col-10" >
-            {% include"header.html.twig" %}
-            <div class="card-body" >
-                <div id="jsGrid"></div>
+        <div class="card bg-light mb-3">
+            <div class="col-10">
+                <div class="card-body">
+                    <div id="jsGrid" ></div>
+                </div>
             </div>
         </div>
-        {% include "footer.html.twig" %}
-
-
     </div>
     <script>
         const DATE_FORMAT = 'DD-MM-YYYY';
@@ -46,78 +45,59 @@
         const readAllUsersRoute = "{{ path('read_all_users')|escape('js') }}";
         const createRoute = "{{ path('create_event')|escape('js') }}";
         const updateRoute = "{{ path('update_calendar_event_by_id',{calendarEventId: 1})|escape('js') }}";
-
-        const clients = [
-            {
-                "Team": "Otto Clay",
-                "02-02-2020": 25,
-                "03-02-2020": 1,
-                "Address": "Ap #897-1459 Quam Avenue",
-                "Married": false
-            },
-            {"Name": "Connor Johnston", "Age": 45, "Country": 2, "Address": "Ap #370-4647 Dis Av.", "Married": true},
-            {"Name": "Lacey Hess", "Age": 29, "Country": 3, "Address": "Ap #365-8835 Integer St.", "Married": false},
-            {"Name": "Timothy Henson", "Age": 56, "Country": 1, "Address": "911-5143 Luctus Ave", "Married": true},
-            {
-                "Name": "Ramona Benton",
-                "Age": 32,
-                "Country": 3,
-                "Address": "Ap #614-689 Vehicula Street",
-                "Married": false
-            }
-        ];
-        const countries = [
-            {Name: "", Id: 0},
-            {Name: "United States", Id: 1},
-            {Name: "Canada", Id: 2},
-            {Name: "United Kingdom", Id: 3}
-        ];
-
-        const teamColumn = {name: 'Team', type: "text", width: 80, editing: false};
+        const teamColumn = {name: 'Team', type: "text", width: 150, editing: false};
         const columns = setWeekDates(0, 6).map(date => {
-            return {name: date, type: "text", width: 80, validate: "required", align: 'center'}
+            return {name: date, type: "text", width: 180, validate: "required", align: 'center'}
         });
         columns.unshift(teamColumn);
         const fields = columns;
+        let getAllDataAjaxCall = $.ajax({
+            type: "GET",
+            url: readAllEventsRoute,
+            dataType: "json"
+        }).then(function (result) {
+            return result;
+        });
 
-
+        let getAllUsersAjaxCall = $.ajax({
+            type: "GET",
+            url: readAllUsersRoute,
+            dataType: "json"
+        }).then(function (result) {
+            return result;
+        });
         const grid = $("#jsGrid").jsGrid({
-
             controller: {
                 loadData: function (filter) {
-                    return $.ajax({
-                        type: "GET",
-                        url: readAllEventsRoute,
-                        data: filter,
-                        dataType: "json"
-                    }).then(function (result) {
-                        _.each(result, item => {
-                            let dateKey = moment(item.eventDate).format('DD-MM-YYYY');
-                            item[dateKey] = item.eventType;
-                            item['Team'] = item.fullName;
+                    return $.when(getAllDataAjaxCall, getAllUsersAjaxCall).then(function (a1, a2) {
+                        const users = _.each(a2, user => {
+                            user['Team'] = user.fullName;
                         });
-                        console.log(result)
-                        return result;
+                        a1.map(item => {
+                            item[moment(item.eventDate).format('DD-MM-YYYY')] = item.eventType
+                        });
+                        return _.each(users, user => {
+                            _.each(a1, item => {
+                                    if (item.userId === user.id) {
+                                        Object.assign(user, item)
+                                    }
+                                }
+                            )
+                        });
                     });
                 },
-
+                width: "100%",
+                height: "750",
                 insertItem: $.noop,
                 updateItem: $.noop,
                 deleteItem: $.noop
             },
-
-            width: "100%",
-            height: "700px",
-
             inserting: false,
             editing: false,
             sorting: false,
             paging: false,
-
-            // data: clients,
             autoload: true,
             fields
         });
-
     </script>
 {% endblock %}
