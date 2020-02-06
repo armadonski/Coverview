@@ -45,29 +45,29 @@ class CalendarEventRepository extends ServiceEntityRepository
 // /**
 //  * @return CalendarEvent[] Returns an array of CalendarEvent objects
 //  */
-/*
-public function findByExampleField($value)
-{
-    return $this->createQueryBuilder('c')
-        ->andWhere('c.exampleField = :val')
-        ->setParameter('val', $value)
-        ->orderBy('c.id', 'ASC')
-        ->setMaxResults(10)
-        ->getQuery()
-        ->getResult()
-    ;
-}
-*/
+    /*
+    public function findByExampleField($value)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    */
 
-/*
-public function findOneBySomeField($value): ?CalendarEvent
-{
-    return $this->createQueryBuilder('c')
-        ->andWhere('c.exampleField = :val')
-        ->setParameter('val', $value)
-        ->getQuery()
-        ->getOneOrNullResult()
-    ;
-}
-*/
+    /*
+    public function findOneBySomeField($value): ?CalendarEvent
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    */
 }

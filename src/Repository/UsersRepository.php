@@ -23,7 +23,7 @@ class UsersRepository extends ServiceEntityRepository
     public function getAllUsers($orderBy = 'Desc')
     {
         return $this->createQueryBuilder('u')
-            ->select('u.id','u.fullName','u.username')
+            ->select('u.id', 'u.fullName', 'u.username')
             ->orderBy('u.id', $orderBy)
             ->getQuery()
             ->getResult(AbstractQuery::HYDRATE_ARRAY);

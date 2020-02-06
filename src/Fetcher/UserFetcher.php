@@ -18,6 +18,7 @@ class UserFetcher
         $this->em = $em;
         $this->logger = $logger;
     }
+
     public function fetchAllCalendarEvents(string $order = 'DESC'): JsonResponse
     {
         try {
