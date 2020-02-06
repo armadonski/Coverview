@@ -1,10 +1,17 @@
 {% extends "base.html.twig" %}
 {% block body %}
     <div class="container-fluid">
-        {% include"header.html.twig" %}
-        {% include "menu.html.twig" %}
-        <div class="card bg-light mb-3">
-            <div class="col-10">
+    <div class="row">
+        <div class="col-sm">
+            {% include"header.html.twig" %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1">
+            {% include "menu.html.twig" %}
+        </div>
+        <div class="col-8" >
+            <div class="card bg-light mb-3">
                 <div class="card-body">
                     <div id="jsGrid"></div>
                 </div>
