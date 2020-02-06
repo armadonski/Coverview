@@ -53,14 +53,15 @@
         const createRoute = "{{ path('create_event')|escape('js') }}";
         const updateRoute = "{{ path('update_calendar_event_by_id',{calendarEventId: 1})|escape('js') }}";
         const teamColumn = {name: 'Team', type: "text", width: 150, editing: false};
-        const columns = setWeekDates(0, 6).map(date => {
+        let columns = setWeekDates(0, 6).map(date => {
             return {name: date, type: "text", width: 180, validate: "required", align: 'center'}
         });
+
         const generateUpdateElement = (eventType, id) => {
-            return `<button id="entry_${id}" value="${eventType}" class="btn btn-dark" style="width:100%">${eventType}</button>`;
+            return `<button id="entry_${id}" value="${eventType}" class="btn btn-dark" style="width:100%" onclick="">${eventType}</button>`;
         };
         const generateCreateElement = () => {
-            return `<button value="new" class="btn btn-dark" style="width:100%">   </button>`;
+            return `<button value="new" class="btn btn-dark" style="width:100%" onclick="alert('clicked')">   </button>`;
         };
         columns.unshift(teamColumn);
         const fields = columns;
