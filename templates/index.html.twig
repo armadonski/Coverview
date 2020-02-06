@@ -56,6 +56,12 @@
         const columns = setWeekDates(0, 6).map(date => {
             return {name: date, type: "text", width: 180, validate: "required", align: 'center'}
         });
+        const generateUpdateElement = (eventType, id) => {
+            return `<button id="entry_${id}" value="${eventType}" class="btn btn-dark" style="width:100%">${eventType}</button>`;
+        };
+        const generateCreateElement = () => {
+            return `<button value="new" class="btn btn-dark" style="width:100%">   </button>`;
+        };
         columns.unshift(teamColumn);
         const fields = columns;
         let getAllDataAjaxCall = $.ajax({
@@ -81,7 +87,7 @@
                             user['Team'] = user.fullName;
                         });
                         a1.map(item => {
-                            item[moment(item.eventDate).format('DD-MM-YYYY')] = item.eventType
+                            item[moment(item.eventDate).format('DD-MM-YYYY')] = generateUpdateElement(item.eventType, item.id);
                         });
                         return _.each(users, user => {
                             _.each(a1, item => {
@@ -93,8 +99,8 @@
                         });
                     });
                 },
-                width: "100%",
-                height: "750px",
+                width: "auto",
+                height: "auto",
                 insertItem: $.noop,
                 updateItem: $.noop,
                 deleteItem: $.noop
