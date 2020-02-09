@@ -53,15 +53,33 @@
         const createRoute = "{{ path('create_event')|escape('js') }}";
         const updateRoute = "{{ path('update_calendar_event_by_id',{calendarEventId: 1})|escape('js') }}";
         const teamColumn = {name: 'Team', type: "text", width: 150, editing: false};
-        let columns = setWeekDates(0, 6).map(date => {
+        let calendarDates = setWeekDates(0, 6);
+        let columns = calendarDates.map(date => {
             return {name: date, type: "text", width: 180, validate: "required", align: 'center'}
         });
 
+        const createAjaxCall = (data) => {
+            return $.ajax({
+                url: createRoute,
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json',
+                data: data,
+                processData: false,
+                success: function (data, textStatus, jQxhr) {
+                    $('#response pre').html(JSON.stringify(data));
+                    grid();
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+        };
         const generateUpdateElement = (eventType, id) => {
             return `<button id="entry_${id}" value="${eventType}" class="btn btn-dark" style="width:100%" onclick="">${eventType}</button>`;
         };
-        const generateCreateElement = () => {
-            return `<button value="new" class="btn btn-dark" style="width:100%" onclick="alert('clicked')">   </button>`;
+        const generateCreateElement = (id) => {
+            return `<button value="new" id="${id}" class="btn btn-light" style="width:100%">Empty</button>`;
         };
         columns.unshift(teamColumn);
         const fields = columns;
@@ -80,38 +98,50 @@
         }).then(function (result) {
             return result;
         });
-        const grid = $("#jsGrid").jsGrid({
-            controller: {
-                loadData: function (filter) {
-                    return $.when(getAllDataAjaxCall, getAllUsersAjaxCall).then(function (a1, a2) {
-                        const users = _.each(a2, user => {
-                            user['Team'] = user.fullName;
-                        });
-                        a1.map(item => {
-                            item[moment(item.eventDate).format('DD-MM-YYYY')] = generateUpdateElement(item.eventType, item.id);
-                        });
-                        return _.each(users, user => {
-                            _.each(a1, item => {
-                                    if (item.userId === user.id) {
-                                        Object.assign(user, item)
+        let buttonIds = [];
+        const grid = () => {
+            $("#jsGrid").jsGrid({
+                controller: {
+                    loadData: function (filter) {
+                        return $.when(getAllDataAjaxCall, getAllUsersAjaxCall).then(function (a1, a2) {
+                            const users = _.each(a2, user => {
+                                user['Team'] = user.fullName;
+                            });
+                            _.each(calendarDates, date => {
+                                a1.map(item => {
+                                    item[moment(item.eventDate.date).format(DATE_FORMAT)] = generateUpdateElement(item.eventType, item.id);
+                                    if (moment(item.eventDate.date).format(DATE_FORMAT) === date) {
+                                    } else {
+                                        let id = uuidv4();
+                                        buttonIds.push(id);
+                                        item[date] = generateCreateElement(id);
                                     }
-                                }
-                            )
+                                });
+                            });
+                            return _.each(users, user => {
+                                _.each(a1, item => {
+                                        if (item.userId === user.id) {
+                                            Object.assign(user, item)
+                                        }
+                                    }
+                                )
+                            });
                         });
-                    });
+                    },
+                    width: "auto",
+                    height: "auto"
                 },
-                width: "auto",
-                height: "auto",
-                insertItem: $.noop,
-                updateItem: $.noop,
-                deleteItem: $.noop
-            },
-            inserting: false,
-            editing: false,
-            sorting: false,
-            paging: false,
-            autoload: true,
-            fields
+                inserting: false,
+                editing: false,
+                sorting: false,
+                paging: false,
+                autoload: true,
+                fields
+            });
+        };
+        grid();
+        $(window).resize(function () {
+            grid();
         });
     </script>
 {% endblock %}

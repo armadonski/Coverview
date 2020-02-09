@@ -19,21 +19,21 @@ class CalendarEvent
 
     /**
      * @Assert\NotBlank(message="User id be empty")
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer",type="integer")
      * @ORM\ManyToOne(targetEntity="User.php", inversedBy="id")
      */
     private $userId;
 
     /**
-     * @ORM\Column(name="event_type")
+     * @ORM\Column(name="event_type",type="string")
      * @Assert\NotBlank(message="Event Type cannot be empty")
      * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $eventType;
 
     /**
-     * @ORM\Column(name="event_date")
-     * @Assert\NotBlank(message="Event Type cannot be empty")
+     * @ORM\Column(name="event_date",type="datetime")
+     * @Assert\NotBlank(message="Event Date cannot be empty")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $eventDate;
