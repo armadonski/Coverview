@@ -104,28 +104,7 @@
                 controller: {
                     loadData: function (filter) {
                         return $.when(getAllDataAjaxCall, getAllUsersAjaxCall).then(function (a1, a2) {
-                            const users = _.each(a2, user => {
-                                user['Team'] = user.fullName;
-                            });
-                            _.each(calendarDates, date => {
-                                a1.map(item => {
-                                    item[moment(item.eventDate.date).format(DATE_FORMAT)] = generateUpdateElement(item.eventType, item.id);
-                                    if (moment(item.eventDate.date).format(DATE_FORMAT) === date) {
-                                    } else {
-                                        let id = uuidv4();
-                                        buttonIds.push(id);
-                                        item[date] = generateCreateElement(id);
-                                    }
-                                });
-                            });
-                            return _.each(users, user => {
-                                _.each(a1, item => {
-                                        if (item.userId === user.id) {
-                                            Object.assign(user, item)
-                                        }
-                                    }
-                                )
-                            });
+                            // console.log(a1,a2)
                         });
                     },
                     width: "auto",
@@ -136,7 +115,12 @@
                 sorting: false,
                 paging: false,
                 autoload: true,
-                fields
+                fields,
+                data: [
+                    {'Team':'dasdas','09-02-2020':'dsadsa'}
+                ]
+
+
             });
         };
         grid();

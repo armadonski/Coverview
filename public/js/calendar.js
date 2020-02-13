@@ -100,13 +100,7 @@ const updateAjaxCall = (data) => {
 };
 const loadGrid = () => {
     $.when(getAllDataAjaxCall(), getUserDataAjaxCall()).done((data, userDataAjaxCall) => {
-        $(function () {
-            $('[data-toggle="popover"]').popover()
-        });
-
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        });
+        console.log(data)
         data = data[0];
         const users = userDataAjaxCall[0];
         let dates = setWeekDates(0, 6);

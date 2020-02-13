@@ -14,19 +14,22 @@ class CalendarEventController
 {
     private $saveCalendarEvent;
     private $calendarEventFetcher;
+    private $calendarEventManager;
 
-    public function __construct(CalendarEventManager $saveCalendarEvent, CalendarEventFetcher $calendarEventFetcher)
+    public function __construct(CalendarEventManager $saveCalendarEvent, CalendarEventFetcher $calendarEventFetcher, CalendarEventManager $calendarEventManager)
     {
         $this->saveCalendarEvent = $saveCalendarEvent;
         $this->calendarEventFetcher = $calendarEventFetcher;
+        $this->calendarEventManager = $calendarEventManager;
     }
 
     /**
      * @Route("/read_all",name="read_all_calendar_events",methods={"GET"})
      */
-    public function readAllCalendarEventsAction(): JsonResponse
+    public function readAllCalendarEventsAction()
     {
-        return $this->calendarEventFetcher->fetchAllCalendarEvents();
+        $this->calendarEventManager->formatCalendarEvents();
+//        return $this->calendarEventFetcher->fetchAllCalendarEvents();
     }
 
     /**

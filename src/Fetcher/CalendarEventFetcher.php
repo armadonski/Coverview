@@ -44,15 +44,9 @@ class CalendarEventFetcher
         return $result;
     }
 
-    public function fetchAllCalendarEvents(string $order = 'DESC'): JsonResponse
+    public function fetchAllCalendarEvents(string $order = 'DESC')
     {
-        try {
-            return new JsonResponse($this->em->getRepository(CalendarEvent::class)->getAllCalendarEventsAndUsers(), Response::HTTP_OK);
-        } catch (\Exception $e) {
-            $error = $e->getMessage();
-            $this->logger->error($error);
-        }
-        return new JsonResponse($error, Response::HTTP_INTERNAL_SERVER_ERROR);
+        return $this->em->getRepository(CalendarEvent::class)->getAllCalendarEventsAndUsers();
     }
 
     public function fetchCalendarEvent(int $calendarEventId): JsonResponse

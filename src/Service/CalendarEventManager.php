@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\CalendarEvent;
+use App\Fetcher\CalendarEventFetcher;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,12 +15,29 @@ class CalendarEventManager
     private $validator;
     private $logger;
     private $em;
+    private $calendarEventFetcher;
 
-    public function __construct(ValidatorInterface $validator, LoggerInterface $logger, EntityManagerInterface $em)
+    public function __construct(ValidatorInterface $validator, LoggerInterface $logger, EntityManagerInterface $em, CalendarEventFetcher $calendarEventFetcher)
     {
         $this->validator = $validator;
         $this->logger = $logger;
         $this->em = $em;
+        $this->calendarEventFetcher = $calendarEventFetcher;
+    }
+
+    public function formatCalendarEvents()
+    {
+        $calendarEvents = $this->calendarEventFetcher->fetchAllCalendarEvents();
+        $calendarEventsSorted = array_map(function ($value) {
+            $dateKey = $value['eventDate']->getTimestamp();
+            return [
+                'Team' => $value['fullName'],
+                $dateKey => $value['eventType']
+            ];
+        }, $calendarEvents);
+        array_unique($calendarEventsSorted, SORT_REGULAR);
+        var_dump($calendarEventsSorted);
+        return $calendarEventsSorted;
     }
 
     public function validateAndSaveCalendarEvent(string $userId, \DateTime $date, string $eventType): JsonResponse
