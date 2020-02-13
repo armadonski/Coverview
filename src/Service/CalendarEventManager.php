@@ -31,6 +31,8 @@ class CalendarEventManager
         $calendarEventsSorted = array_map(function ($value) {
             $dateKey = $value['eventDate']->getTimestamp();
             return [
+                'id' => $value['userId'],
+                'userId' => $value['userId'],
                 'Team' => $value['fullName'],
                 $dateKey => $value['eventType']
             ];
