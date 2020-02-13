@@ -37,7 +37,6 @@ class CalendarEventManager
                 $dateKey => $value['eventType']
             ];
         }, $calendarEvents);
-        array_unique($calendarEventsSorted, SORT_REGULAR);
         var_dump($calendarEventsSorted);
         return $calendarEventsSorted;
     }
