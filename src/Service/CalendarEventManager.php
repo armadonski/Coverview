@@ -28,11 +28,10 @@ class CalendarEventManager
         $this->calendarEventFetcher = $calendarEventFetcher;
     }
 
-    public function formatCalendarEvents()
+    private function createCalendarEventCollection(array $calendarEvents): ArrayCollection
     {
         $calendarData = new ArrayCollection();
         $calendarEventDto = new CalendarEventDataDto();
-        $calendarEvents = $this->calendarEventFetcher->fetchAllCalendarEvents();
         foreach ($calendarEvents as $calendarEvent) {
             $calendarEventDto
                 ->setCalendarEventId($calendarEvent['id'])
@@ -42,8 +41,13 @@ class CalendarEventManager
                 ->setUserId($calendarEvent['userId']);
             $calendarData->add($calendarEventDto->serialize());
         }
-        var_dump($calendarData);
-        return;
+        return $calendarData;
+    }
+
+    public function formatCalendarEvents()
+    {
+      
+
     }
 
     public function validateAndSaveCalendarEvent(string $userId, DateTime $date, string $eventType): JsonResponse
