@@ -4,6 +4,9 @@ namespace App\Service;
 
 use App\Entity\CalendarEvent;
 use App\Fetcher\CalendarEventFetcher;
+use App\Service\Dto\CalendarEventDataDto;
+use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,12 +30,23 @@ class CalendarEventManager
 
     public function formatCalendarEvents()
     {
+        $calendarData = new ArrayCollection();
+        $calendarEventDto = new CalendarEventDataDto();
         $calendarEvents = $this->calendarEventFetcher->fetchAllCalendarEvents();
-        var_dump($calendarEvents);
+        foreach ($calendarEvents as $calendarEvent) {
+            $calendarEventDto
+                ->setCalendarEventId($calendarEvent['id'])
+                ->setEventDateKey($calendarEvent['eventDate']->getTimestamp())
+                ->setEventType($calendarEvent['eventType'])
+                ->setFullName($calendarEvent['fullName'])
+                ->setUserId($calendarEvent['userId']);
+            $calendarData->add($calendarEventDto->serialize());
+        }
+        var_dump($calendarData);
         return;
     }
 
-    public function validateAndSaveCalendarEvent(string $userId, \DateTime $date, string $eventType): JsonResponse
+    public function validateAndSaveCalendarEvent(string $userId, DateTime $date, string $eventType): JsonResponse
     {
 
         try {
@@ -46,7 +60,7 @@ class CalendarEventManager
         return new JsonResponse($error, Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
-    public function validateAndUpdateCalendarEvent(int $calendarEventId, string $userId, \DateTime $date, string $eventType): JsonResponse
+    public function validateAndUpdateCalendarEvent(int $calendarEventId, string $userId, DateTime $date, string $eventType): JsonResponse
     {
         try {
             $calendarEvent = $this->em->getRepository(CalendarEvent::class)->find($calendarEventId);
@@ -58,7 +72,7 @@ class CalendarEventManager
         return new JsonResponse($error, Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
-    private function setEntityDataAndValidate(CalendarEvent $calendarEvent, string $userId, \DateTime $date, string $eventType): ?JsonResponse
+    private function setEntityDataAndValidate(CalendarEvent $calendarEvent, string $userId, DateTime $date, string $eventType): ?JsonResponse
     {
         $calendarEvent
             ->setUserId($userId)

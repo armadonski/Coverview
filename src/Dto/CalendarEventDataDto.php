@@ -114,6 +114,7 @@ class CalendarEventDataDto
         return [
             self::CALENDAR_EVENT_ID => $this->calendarEventId,
             self::USER_ID => $this->userId,
+            self::FULL_NAME => $this->fullName,
             $this->eventDateKey => $this->eventType
         ];
     }
