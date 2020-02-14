@@ -28,17 +28,8 @@ class CalendarEventManager
     public function formatCalendarEvents()
     {
         $calendarEvents = $this->calendarEventFetcher->fetchAllCalendarEvents();
-        $calendarEventsSorted = array_map(function ($value) {
-            $dateKey = $value['eventDate']->getTimestamp();
-            return [
-                'id' => $value['userId'],
-                'userId' => $value['userId'],
-                'Team' => $value['fullName'],
-                $dateKey => $value['eventType']
-            ];
-        }, $calendarEvents);
-        var_dump($calendarEventsSorted);
-        return $calendarEventsSorted;
+        var_dump($calendarEvents);
+        return;
     }
 
     public function validateAndSaveCalendarEvent(string $userId, \DateTime $date, string $eventType): JsonResponse
