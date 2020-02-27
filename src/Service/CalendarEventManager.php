@@ -56,7 +56,7 @@ class CalendarEventManager
         $calendarEvents = $this->createCalendarEventCollection($this->calendarEventFetcher->fetchAllCalendarEvents())->toArray();
         $data = [];
         foreach ($calendarEvents as $key => $item) {
-            $data[$item['userId']][$key] = $item;
+            $data[$item['fullName']][$key] = $item;
         }
         return $data;
     }
