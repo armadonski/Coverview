@@ -83,29 +83,30 @@
         };
         columns.unshift(teamColumn);
         const fields = columns;
-        let getAllDataAjaxCall = $.ajax({
-            type: "GET",
-            url: readAllEventsRoute,
-            dataType: "json"
-        }).then(function (result) {
-            return result;
-        });
 
-        let getAllUsersAjaxCall = $.ajax({
-            type: "GET",
-            url: readAllUsersRoute,
-            dataType: "json"
-        }).then(function (result) {
-            return result;
-        });
+        let getAllDataAjaxCall = () => {
+            return $.ajax({
+                type: "GET",
+                url: readAllEventsRoute,
+                dataType: "json"
+            })
+        };
+
+
         let buttonIds = [];
         const grid = () => {
             $("#jsGrid").jsGrid({
                 controller: {
                     loadData: function (filter) {
-                        return $.when(getAllDataAjaxCall, getAllUsersAjaxCall).then(function (a1, a2) {
-                            // console.log(a1,a2)
+                        return getAllDataAjaxCall().then(result => {
+                            const data = [];
+                            const users = Object.keys(result);
+                            _.each(users, user => {
+                                data.push({Team: user})
+                            });
+                            return data;
                         });
+
                     },
                     width: "auto",
                     height: "auto"
@@ -116,9 +117,9 @@
                 paging: false,
                 autoload: true,
                 fields,
-                data: [
-                    {'Team':'dasdas','09-02-2020':'dsadsa'}
-                ]
+                // data: [
+                //     {'Team':'dasdas','09-02-2020':'dsadsa'}
+                // ]
 
 
             });

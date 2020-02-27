@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Fetcher\CalendarEventFetcher;
 use App\Service\CalendarEventManager;
 use Exception;
@@ -26,10 +25,10 @@ class CalendarEventController
     /**
      * @Route("/read_all",name="read_all_calendar_events",methods={"GET"})
      */
-    public function readAllCalendarEventsAction()
+    public function readAllCalendarEventsAction(): JsonResponse
     {
-        $this->calendarEventManager->formatCalendarEvents();
-//        return $this->calendarEventFetcher->fetchAllCalendarEvents();
+
+        return new JsonResponse($this->calendarEventManager->formatCalendarEvents());
     }
 
     /**

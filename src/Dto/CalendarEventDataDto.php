@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Dto;
+namespace App\Dto;
 
 class CalendarEventDataDto
 {
@@ -115,7 +115,7 @@ class CalendarEventDataDto
             self::CALENDAR_EVENT_ID => $this->calendarEventId,
             self::USER_ID => $this->userId,
             self::FULL_NAME => $this->fullName,
-            $this->eventDateKey => $this->eventType
+            date('d-m-Y',$this->eventDateKey) => $this->eventType
         ];
     }
 }

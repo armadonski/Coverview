@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Entity\CalendarEvent;
 use App\Fetcher\CalendarEventFetcher;
-use App\Service\Dto\CalendarEventDataDto;
+use App\Dto\CalendarEventDataDto;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,35 +19,46 @@ class CalendarEventManager
     private $logger;
     private $em;
     private $calendarEventFetcher;
+    private $calendarEventDto;
 
-    public function __construct(ValidatorInterface $validator, LoggerInterface $logger, EntityManagerInterface $em, CalendarEventFetcher $calendarEventFetcher)
+    public function __construct(
+        ValidatorInterface $validator,
+        LoggerInterface $logger,
+        EntityManagerInterface $em,
+        CalendarEventFetcher $calendarEventFetcher,
+        CalendarEventDataDto $calendarEventDataDto
+    )
     {
         $this->validator = $validator;
         $this->logger = $logger;
         $this->em = $em;
         $this->calendarEventFetcher = $calendarEventFetcher;
+        $this->calendarEventDto = $calendarEventDataDto;
     }
 
     private function createCalendarEventCollection(array $calendarEvents): ArrayCollection
     {
         $calendarData = new ArrayCollection();
-        $calendarEventDto = new CalendarEventDataDto();
         foreach ($calendarEvents as $calendarEvent) {
-            $calendarEventDto
+            $this->calendarEventDto
                 ->setCalendarEventId($calendarEvent['id'])
                 ->setEventDateKey($calendarEvent['eventDate']->getTimestamp())
                 ->setEventType($calendarEvent['eventType'])
                 ->setFullName($calendarEvent['fullName'])
                 ->setUserId($calendarEvent['userId']);
-            $calendarData->add($calendarEventDto->serialize());
+            $calendarData->add($this->calendarEventDto->serialize());
         }
         return $calendarData;
     }
 
     public function formatCalendarEvents()
     {
-      
-
+        $calendarEvents = $this->createCalendarEventCollection($this->calendarEventFetcher->fetchAllCalendarEvents())->toArray();
+        $data = [];
+        foreach ($calendarEvents as $key => $item) {
+            $data[$item['userId']][$key] = $item;
+        }
+        return $data;
     }
 
     public function validateAndSaveCalendarEvent(string $userId, DateTime $date, string $eventType): JsonResponse
