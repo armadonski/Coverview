@@ -4,13 +4,16 @@
         #jsGrid {
             min-width: 100% !important;
         }
+
         .card-body {
             min-width: 100% !important;
         }
-}
-        header{
+
+
+        header {
             max-width: 100%;
         }
+
         #jsGrid {
             max-width: 100% !important;
         }
@@ -61,7 +64,10 @@
         const createRoute = "{{ path('create_event')|escape('js') }}";
         const updateRoute = "{{ path('update_calendar_event_by_id',{calendarEventId: 1})|escape('js') }}";
         const teamColumn = {name: 'Team', type: "text", width: 150, editing: false};
-        let calendarDates = setWeekDates(1,7);
+
+        let calendarDates = setWeekDates(1, 7);
+
+
         let columns = calendarDates.map(date => {
             return {name: date, type: "text", width: 180, validate: "required", align: 'center'}
         });
@@ -162,6 +168,5 @@
             grid();
         });
         grid();
-
     </script>
 {% endblock %}
