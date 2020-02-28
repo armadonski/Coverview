@@ -65,12 +65,6 @@
         const updateRoute = "{{ path('update_calendar_event_by_id',{calendarEventId: 1})|escape('js') }}";
         const teamColumn = {name: 'Team', type: "text", width: 150, editing: false};
 
-        let calendarDates = setWeekDates(1, 7);
-
-
-        let columns = calendarDates.map(date => {
-            return {name: date, type: "text", width: 180, validate: "required", align: 'center'}
-        });
 
         const createAjaxCall = (data) => {
             return $.ajax({
@@ -82,21 +76,14 @@
                 processData: false,
                 success: function (data, textStatus, jQxhr) {
                     $('#response pre').html(JSON.stringify(data));
-                    grid();
+                    grid(calendarDates);
                 },
                 error: function (jqXhr, textStatus, errorThrown) {
                     console.log(errorThrown);
                 }
             });
         };
-        const generateUpdateElement = (eventType, id) => {
-            return `<button id="entry_${id}" value="${eventType}" class="btn btn-dark" style="width:100%" onclick="">${eventType}</button>`;
-        };
-        const generateCreateElement = (id) => {
-            return `<button value="new" id="${id}" class="btn btn-light" style="width:100%">Empty</button>`;
-        };
-        columns.unshift(teamColumn);
-        const fields = columns;
+
 
         let getAllDataAjaxCall = () => {
             return $.ajax({
@@ -115,7 +102,15 @@
         };
 
         let buttonIds = [];
-        const grid = () => {
+        const grid = (calendarDates) => {
+
+
+            let columns = calendarDates.map(date => {
+                return {name: date, type: "text", width: 180, validate: "required", align: 'center'}
+            });
+
+            columns.unshift(teamColumn);
+            const fields = columns;
             $("#jsGrid").jsGrid({
                 controller: {
                     loadData: function (filter) {
@@ -164,9 +159,27 @@
                 loadShading: true,
             });
         };
+        calendarDates = setWeekDates(1, 7);
         $(window).resize(function () {
-            grid();
+            grid(calendarDates);
         });
-        grid();
+
+
+        grid(calendarDates);
+        $('#year').click(() => {
+            $('.nav-link').removeClass('active');
+            $('#year').addClass('active');
+            grid(setYearDates(setYearDates(moment().year())))
+        });
+        $('#month').click(() => {
+            $('.nav-link').removeClass('active');
+            $('#month').addClass('active');
+            grid(setMonthDates((moment().month())))
+        })
+        $('#week').click(() => {
+            $('.nav-link').removeClass('active');
+            $('#week').addClass('active');
+            grid(setWeekDates(1, 7));
+        })
     </script>
 {% endblock %}
