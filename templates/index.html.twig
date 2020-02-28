@@ -1,9 +1,10 @@
 {% extends "base.html.twig" %}
 {% block body %}
     <style>
-        .nav-link{
+        .nav-link {
             cursor: pointer;
         }
+
         #jsGrid {
             min-width: 100% !important;
         }
@@ -12,13 +13,17 @@
             min-width: 100% !important;
         }
 
-
         header {
             max-width: 100%;
         }
 
         #jsGrid {
             max-width: 100% !important;
+        }
+        .jsgrid-cell.current-day, .jsgrid-header-cell.current-day{
+            background: #b9bbbe;
+            color: #0056b3;
+            border-radius: 5px;
         }
     </style>
     <div class="container-fluid">
@@ -109,6 +114,9 @@
 
 
             let columns = calendarDates.map(date => {
+                if (date === moment().format(DATE_FORMAT)) {
+                    return {name: date, type: "text", width: 180, validate: "required", align: 'center', css: "current-day",}
+                }
                 return {name: date, type: "text", width: 180, validate: "required", align: 'center'}
             });
 
