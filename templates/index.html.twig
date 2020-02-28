@@ -111,6 +111,11 @@
                                 })
                             });
                             _.each(data, item => {
+                                _.each(calendarDates, calendarDate => {
+                                    item[calendarDate] = 'NONE'
+                                })
+                            });
+                            _.each(data, item => {
                                 _.each(calendarEvents, calendarEvent => {
                                     if (item.Team === calendarEvent.fullName) {
                                         Object.assign(item, calendarEvent)
