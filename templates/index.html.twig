@@ -92,27 +92,35 @@
             })
         };
 
+        let getAllUsersAjaxCall = () => {
+            return $.ajax({
+                type: "GET",
+                url: readAllUsersRoute,
+                dataType: "json"
+            })
+        };
 
         let buttonIds = [];
         const grid = () => {
             $("#jsGrid").jsGrid({
                 controller: {
                     loadData: function (filter) {
-                        return getAllDataAjaxCall().then(results => {
+                        return $.when(getAllDataAjaxCall(), getAllUsersAjaxCall()).then(function (a1, a2) {
+                            const allData = a1[0];
+                            const allUsers = a2[0];
                             const data = [];
                             const calendarEvents = [];
-                            let users = Object.keys(results);
-                            _.each(users, user => {
-                                data.push({Team: user})
+                            _.each(allUsers, user => {
+                                data.push({Team: user.fullName})
                             });
-                            _.each(results, result => {
+                            _.each(allData, result => {
                                 _.each(result, property => {
                                     calendarEvents.push(property)
                                 })
                             });
                             _.each(data, item => {
                                 _.each(calendarDates, calendarDate => {
-                                    item[calendarDate] = 'NONE'
+                                    item[calendarDate] = '<button class="btn btn-primary">None</button>'
                                 })
                             });
                             _.each(data, item => {
