@@ -1,21 +1,29 @@
 {% extends "base.html.twig" %}
 {% block body %}
+    <style>
+        #jsGrid {
+            min-width: 100% !important;
+        }
+        .card-body {
+            min-width: 100% !important;
+        }
+}
+        header{
+            max-width: 100%;
+        }
+        #jsGrid {
+            max-width: 100% !important;
+        }
+    </style>
     <div class="container-fluid">
     <div class="row">
-        <div class="col-9" style="min-width: 100%">
+        <div class="col" style="min-width: 100%">
             {% include"header.html.twig" %}
         </div>
     </div>
     <div class="row">
-        <div class="col-1" style="min-width: 180px">
-            {% include "menu.html.twig" %}
-        </div>
-        <div class="col-8">
-            <div class="card bg-light mb-3">
-                <div class="card-body">
-                    <div id="jsGrid"></div>
-                </div>
-            </div>
+        <div class="col">
+            <div id="jsGrid"></div>
         </div>
     </div>
     <script>
@@ -53,7 +61,7 @@
         const createRoute = "{{ path('create_event')|escape('js') }}";
         const updateRoute = "{{ path('update_calendar_event_by_id',{calendarEventId: 1})|escape('js') }}";
         const teamColumn = {name: 'Team', type: "text", width: 150, editing: false};
-        let calendarDates = setWeekDates(0, 6);
+        let calendarDates = setWeekDates(1,7);
         let columns = calendarDates.map(date => {
             return {name: date, type: "text", width: 180, validate: "required", align: 'center'}
         });
@@ -134,25 +142,26 @@
                         });
 
                     },
+                    height: "auto",
                     width: "auto",
-                    height: "auto"
                 },
                 inserting: false,
                 editing: false,
                 sorting: false,
-                paging: false,
+                paging: true,
                 autoload: true,
                 fields,
-                // data: [
-                //     {'Team':'dasdas','09-02-2020':'dsadsa'}
-                // ]
-
-
+                updateOnResize: true,
+                loadIndication: true,
+                loadIndicationDelay: 500,
+                loadMessage: "Please, wait...",
+                loadShading: true,
             });
         };
-        grid();
         $(window).resize(function () {
             grid();
         });
+        grid();
+
     </script>
 {% endblock %}
