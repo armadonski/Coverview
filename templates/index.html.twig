@@ -1,6 +1,9 @@
 {% extends "base.html.twig" %}
 {% block body %}
     <style>
+        .nav-link{
+            cursor: pointer;
+        }
         #jsGrid {
             min-width: 100% !important;
         }
@@ -166,6 +169,8 @@
 
 
         grid(calendarDates);
+        $('#week').addClass('active');
+
         $('#year').click(() => {
             $('.nav-link').removeClass('active');
             $('#year').addClass('active');
