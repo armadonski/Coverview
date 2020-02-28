@@ -98,11 +98,24 @@
             $("#jsGrid").jsGrid({
                 controller: {
                     loadData: function (filter) {
-                        return getAllDataAjaxCall().then(result => {
+                        return getAllDataAjaxCall().then(results => {
                             const data = [];
-                            const users = Object.keys(result);
+                            const calendarEvents = [];
+                            let users = Object.keys(results);
                             _.each(users, user => {
-                               data.push({Team: user});
+                                data.push({Team: user})
+                            });
+                            _.each(results, result => {
+                                _.each(result, property => {
+                                    calendarEvents.push(property)
+                                })
+                            });
+                            _.each(data, item => {
+                                _.each(calendarEvents, calendarEvent => {
+                                    if (item.Team === calendarEvent.fullName) {
+                                        Object.assign(item, calendarEvent)
+                                    }
+                                })
                             });
                             return data;
                         });
