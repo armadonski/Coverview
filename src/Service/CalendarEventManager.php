@@ -46,7 +46,7 @@ class CalendarEventManager
                 ->setEventType($calendarEvent['eventType'])
                 ->setFullName($calendarEvent['fullName'])
                 ->setUserId($calendarEvent['userId']);
-            $calendarData->add($this->calendarEventDto->serialize());
+            $calendarData->add($this->calendarEventDto->serializeRenderObject());
         }
         return $calendarData;
     }

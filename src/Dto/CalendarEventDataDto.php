@@ -109,13 +109,12 @@ class CalendarEventDataDto
      * @return mixed
      */
 
-    public function serialize(): array
+    public function serializeRenderObject(): array
     {
         return [
-            self::CALENDAR_EVENT_ID => $this->calendarEventId,
             self::USER_ID => $this->userId,
             self::FULL_NAME => $this->fullName,
-            date('d-m-Y',$this->eventDateKey) => $this->eventType
+            date('d-m-Y',$this->eventDateKey) => "<button class='btn btn-primary' id=$this->calendarEventId>".$this->eventType."</button>"
         ];
     }
 }
