@@ -114,7 +114,7 @@ class CalendarEventDataDto
         return [
             self::USER_ID => $this->userId,
             self::FULL_NAME => $this->fullName,
-            date('d-m-Y',$this->eventDateKey) => "<button class='btn btn-primary' id=$this->calendarEventId>".$this->eventType."</button>"
+            date('d-m-Y',$this->eventDateKey) => "<div class='edit' id=$this->calendarEventId>".$this->eventType."</div>"
         ];
     }
 }

@@ -1,6 +1,20 @@
 {% extends "base.html.twig" %}
 {% block body %}
     <style>
+        .create {
+            min-height: 100%;
+            min-width: 100%;
+            content: "";
+            background: linear-gradient(to bottom right, red, yellow);
+            color: white;
+            border-style: solid;
+        }
+
+        .edit {
+            width: 100%;
+            background: #0f6674;
+        }
+
         .nav-link {
             cursor: pointer;
         }
@@ -19,20 +33,51 @@
 
         #jsGrid {
             max-width: 100% !important;
+            max-height: 100% !important;
+            margin: 1% 0 5%;
         }
-        .jsgrid-cell.current-day, .jsgrid-header-cell.current-day{
+
+
+        .jsgrid-cell.current-day, .jsgrid-header-cell.current-day {
             background: #b9bbbe;
             color: #0056b3;
             border-radius: 5px;
         }
+
+        .entry {
+            background: #0f6674;
+            color: white !important;
+        }
+
+        .user-image {
+            max-width: 20%;
+            background: white;
+        }
+
+        .navbar {
+            margin-top: 5%;
+        }
+
+        body {
+
+            background: rgba(255, 255, 255, 1);
+            background: -moz-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(47%, rgba(246, 246, 246, 1)), color-stop(100%, rgba(237, 237, 237, 1)));
+            background: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            background: -o-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            background: -ms-linear-gradient(left, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=1);
+            background-repeat: no-repeat;
+        }
+
     </style>
     <div class="container-fluid">
-    <div class="row">
-        <div class="col">
-            {% include"menu.html.twig" %}
+        <div class="row">
+            <div class="col">
+                {% include"menu.html.twig" %}
+            </div>
         </div>
-    </div>
-    <div class="row">
         <div class="col">
             <div id="jsGrid"></div>
         </div>
@@ -71,7 +116,7 @@
         const readAllUsersRoute = "{{ path('read_all_users')|escape('js') }}";
         const createRoute = "{{ path('create_event')|escape('js') }}";
         const updateRoute = "{{ path('update_calendar_event_by_id',{calendarEventId: 1})|escape('js') }}";
-        const teamColumn = {name: 'Team', type: "text", width: 150, editing: false};
+        const teamColumn = {name: 'Team', type: "text", width: "150px", editing: false};
 
 
         const createAjaxCall = (data) => {
@@ -111,13 +156,18 @@
 
         let buttonIds = [];
         const grid = (calendarDates) => {
-
-
             let columns = calendarDates.map(date => {
                 if (date === moment().format(DATE_FORMAT)) {
-                    return {name: date, type: "text", width: 180, validate: "required", align: 'center', css: "current-day",}
+                    return {
+                        name: date,
+                        type: "text",
+                        width: "150px",
+                        validate: "required",
+                        align: 'center',
+                        css: "current-day",
+                    }
                 }
-                return {name: date, type: "text", width: 180, validate: "required", align: 'center'}
+                return {name: date, type: "text", width: "150px", validate: "required", align: 'center'}
             });
 
             columns.unshift(teamColumn);
@@ -131,7 +181,7 @@
                             const data = [];
                             const calendarEvents = [];
                             _.each(allUsers, user => {
-                                data.push({Team: user.fullName})
+                                data.push({Team: user.fullName, id: user.id});
                             });
                             _.each(allData, result => {
                                 _.each(result, property => {
@@ -140,12 +190,12 @@
                             });
                             _.each(data, item => {
                                 _.each(calendarDates, calendarDate => {
-                                    item[calendarDate] = '<button class="btn btn-outline-dark">None</button>'
+                                    item[calendarDate] = '<div class="create">&nbsp;</div>'
                                 })
                             });
                             _.each(data, item => {
                                 _.each(calendarEvents, calendarEvent => {
-                                    if (item.Team === calendarEvent.fullName) {
+                                    if (item.id === calendarEvent.userId) {
                                         Object.assign(item, calendarEvent)
                                     }
                                 })
@@ -171,9 +221,9 @@
             });
         };
         calendarDates = setWeekDates(1, 7);
-        $(window).resize(function () {
-            grid(calendarDates);
-        });
+        // $(window).resize(function () {
+        //     grid(calendarDates);
+        // });
 
 
         grid(calendarDates);
